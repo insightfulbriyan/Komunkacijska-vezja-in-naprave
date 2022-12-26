@@ -51,7 +51,7 @@
 	Podnaslov seminarske naloge k si ga še nism izmislu
     \vspace{\fill}
 
-    Mentor: Anton Orehek, uni. dipl. inž., prof.  \hfill Avtor: Jaka Kovač, G 3. b\\
+    Mentor: Anton Orehek, uni. dipl. inž., prof. \hfill Avtor: Jaka Kovač, G 3. b\\
     \null
 	Ljubljana, december 2022 - \MMYYYYdate\today
 \end{center}
@@ -62,10 +62,21 @@
 %If I had more time I would have written a shorter letter - Mark Twain
 \section*{Povzetek}
 \section*{Abstract}
-\newpage
 
 % KAZALO 
+\newpage
 \tableofcontents
+
+\begingroup
+\makeatletter
+\chapter*{Slike}
+\@starttoc{lof}
+\let\clearpage\relax
+\chapter*{Tabele}
+\@starttoc{lot}
+\makeatother
+\endgroup
+
 
 \newpage
 \section{Analogna komunikacija}
@@ -84,6 +95,20 @@
 \subsection{Fourierjeva transformacija}
 \subsubsection{FFT - hitra fourirjeva transformacija}
 \subsection{Problemi analognih komunikacij}
+\begin{table}[h]
+    \centering
+    \caption{This is a table}
+    \begin{tabular}{lcr}
+      \hline
+      Column 1 & Column 2 & Column 3 \\
+      \hline
+      A & B & C \\
+      D & E & F \\
+      \hline
+    \end{tabular}
+    \label{tab:table}
+\end{table}  
+
 
 \newpage
 \section{Digitalna komunikacija}
@@ -98,19 +123,21 @@
 \newpage
 \section{Empirični del}
 \subsection{Analogna vezja}
+Na Vezju~\ref{fig:vezje1}
 
 \newpage
 \subsection{Digitalna vezja}
 \begin{figure}[h!]
     \begin{center}
-      \begin{circuitikz}[scale=1.5] \draw
-        (0, 2.5) to[american voltage source, l_=$U_{vh}$, i<=$I_{vh}$] (0, 0)
-        (0, 2.5) to[D, l=$D_1$] (3, 2.5)
-        to[R, l=$R_1$] (3, 0)
-        to[short] (0, 0)
-        ;
-      \end{circuitikz}
-      \caption{My first circuit.}
+        \caption{Moje prvo \LaTeX vezje}
+        \begin{circuitikz} \draw
+            (0, 2.5) to[american voltage source, l_=$U_{vh}$, i<=$I_{vh}$] (0, 0)
+            (0, 2.5) to[D, l=$D_1$] (3.5, 2.5)
+            to[R, l=$R_1$] (3.5, 0)
+            to[short] (0, 0)
+            ;
+        \end{circuitikz}
+        \label{fig:vezje1}
     \end{center}
   \end{figure}
 
