@@ -1,4 +1,4 @@
-\documentclass[12pt]{report}
+\documentclass[12pt]{article}
 
 \usepackage[a4paper, margin=2.5cm]{geometry}
 \usepackage[utf8]{inputenc}                             % UTF8 enkodiranje
@@ -16,6 +16,9 @@
 \usepackage{tikz} 
 \usepackage[european]{circuitikz}                       % Električna vezja
 \usepackage{datetime}                                   % Datum
+\usepackage{csquotes}
+\usepackage[style=ieee, maxbibnames=3, minbibnames=1, maxcitenames=1, mincitenames=1]{biblatex}                       % Navajanje virov
+\addbibresource{viri.bib}
 
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1ex}
@@ -29,10 +32,16 @@
 \renewcommand{\theparagraph}{\thesubsubsection.\arabic{paragraph}}
 \renewcommand{\thesubparagraph}{\theparagraph.\arabic{subparagraph}}
 
+\renewcommand{\labelnamepunct}{\addcomma\space}
+\DeclareFieldFormat[article, online]{title}{#1}
+
+\DefineBibliographyStrings{slovene}{
+  andothers = {et. al\adddot},
+  urlseen = {dostopano:}
+}
 
 \newdateformat{MMYYYYdate}{\monthname[\THEMONTH] \THEYEAR}
 
-\title{Komunikacijska vezja in naprave}
 \author{Jaka Kovač, G 3. b}
 
 \begin{document}
@@ -42,18 +51,18 @@
     \thispagestyle{empty}
     \includegraphics[scale=1]{slike/logotip_vegova_leze_brezokvirja.png}
     
-	\vspace{\fill} 
-	Strokovno poročilo pri predmetu elektrotehnika
+    \vspace{\fill} 
+    Strokovno poročilo pri predmetu elektrotehnika
 
-	\Huge{\textbf{Komunikacijska vezja in naprave}}
+    \title{Komunikacijska vezja in naprave}
 
-	\normalsize
-	Podnaslov seminarske naloge k si ga še nism izmislu
+    \normalsize
+    Podnaslov seminarske naloge k si ga še nism izmislu
     \vspace{\fill}
 
     Mentor: Anton Orehek, uni. dipl. inž., prof. \hfill Avtor: Jaka Kovač, G 3. b\\
     \null
-	Ljubljana, december 2022 - \MMYYYYdate\today
+    Ljubljana, december 2022 - \MMYYYYdate\today
 \end{center}
 \newpage
 \null
@@ -67,12 +76,13 @@
 \newpage
 \tableofcontents
 
+\newpage
 \begingroup
 \makeatletter
-\chapter*{Slike}
+\section*{Slike}
 \@starttoc{lof}
 \let\clearpage\relax
-\chapter*{Tabele}
+\section*{Tabele}
 \@starttoc{lot}
 \makeatother
 \endgroup
@@ -95,6 +105,8 @@
 \subsection{Fourierjeva transformacija}
 \subsubsection{FFT - hitra fourirjeva transformacija}
 \subsection{Problemi analognih komunikacij}
+Tole je pomembno besedilo
+
 \begin{table}[h]
     \centering
     \caption{This is a table}
@@ -123,7 +135,7 @@
 \newpage
 \section{Empirični del}
 \subsection{Analogna vezja}
-Na Vezju~\ref{fig:vezje1}
+
 
 \newpage
 \subsection{Digitalna vezja}
@@ -139,11 +151,15 @@ Na Vezju~\ref{fig:vezje1}
         \end{circuitikz}
         \label{fig:vezje1}
     \end{center}
-  \end{figure}
+\end{figure}
 
 \newpage
-\section{Viri}
-\begin{itemize}
-    \item prazen vir k nima pomena
-\end{itemize}
+
+\begingroup
+\makeatletter
+\section{Viri in literatura}
+\nocite{*}
+\printbibliography[heading=none]
+\makeatother
+\endgroup
 \end{document}
