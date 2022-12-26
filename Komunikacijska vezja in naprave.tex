@@ -1,0 +1,122 @@
+\documentclass[12pt]{report}
+
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}                             % UTF8 enkodiranje
+\usepackage[slovene]{babel}                             % Slovenščina
+\usepackage[pdfusetitle, hidelinks, unicode]{hyperref}  % Nastavi atribute PDF-ja, ne označuj povezav
+\usepackage{microtype}                                  % Podzavestne izboljšave za tipografijsko perfekcijo :)
+\usepackage{enumitem}                                   % Seznami za člene
+\usepackage{graphicx}                                   % Vključitev slik
+\usepackage{dirtytalk}                                  % Citat
+\usepackage{listings}                                   % Kodni blok
+\usepackage{fancyvrb}
+\usepackage[font=]{caption}                             % Required for specifying captions
+\usepackage[normalem]{ulem}                             % Krašanje enot v enačbi
+\usepackage{times}                                      % Times New Roman pisava
+\usepackage{tikz} 
+\usepackage[european]{circuitikz}                       % Električna vezja
+\usepackage{datetime}                                   % Datum
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1ex}
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\renewcommand{\theparagraph}{\thesubsubsection.\arabic{paragraph}}
+\renewcommand{\thesubparagraph}{\theparagraph.\arabic{subparagraph}}
+
+
+\newdateformat{MMYYYYdate}{\monthname[\THEMONTH] \THEYEAR}
+
+\title{Komunikacijska vezja in naprave}
+\author{Jaka Kovač, G 3. b}
+
+\begin{document}
+\pagenumbering{arabic}
+
+\begin{center}
+    \thispagestyle{empty}
+    \includegraphics[scale=1]{slike/logotip_vegova_leze_brezokvirja.png}
+    
+	\vspace{\fill} 
+	Strokovno poročilo pri predmetu elektrotehnika
+
+	\Huge{\textbf{Komunikacijska vezja in naprave}}
+
+	\normalsize
+	Podnaslov seminarske naloge k si ga še nism izmislu
+    \vspace{\fill}
+
+    Mentor: Anton Orehek, uni. dipl. inž., prof.  \hfill Avtor: Jaka Kovač, G 3. b\\
+    \null
+	Ljubljana, december 2022 - \MMYYYYdate\today
+\end{center}
+\newpage
+\null
+\newpage
+
+%If I had more time I would have written a shorter letter - Mark Twain
+\section*{Povzetek}
+\section*{Abstract}
+\newpage
+
+% KAZALO 
+\tableofcontents
+
+\newpage
+\section{Analogna komunikacija}
+\subsection{Začetki radia (in radioamaterstva)}
+\subsubsection{Zgodovina radia}
+\subsubsection{Radioamaterstvo}
+\subsection{Analogni signali}
+\subsubsection{Amplitudna modulacija}
+\paragraph{Nek po poglavje}
+\paragraph{Nek drug po poglavje}
+\subsubsection{Frekvenčna modulacija}
+\paragraph{Nek po poglavje}
+\paragraph{Nek drug po poglavje}
+
+\newpage
+\subsection{Fourierjeva transformacija}
+\subsubsection{FFT - hitra fourirjeva transformacija}
+\subsection{Problemi analognih komunikacij}
+
+\newpage
+\section{Digitalna komunikacija}
+\subsection{Prednosti in slabosti digitalne komunikacije}
+\subsection{Problemi digitalnih komunikacij}
+\subsubsection{Bitflips}
+\subsection{Rešitve problemov}
+\subsubsection{Error correction}
+\paragraph{Reed-Solomon kod}
+\paragraph{tisto s polinomi in črno magijo}
+
+\newpage
+\section{Empirični del}
+\subsection{Analogna vezja}
+
+\newpage
+\subsection{Digitalna vezja}
+\begin{figure}[h!]
+    \begin{center}
+      \begin{circuitikz}[scale=1.5] \draw
+        (0, 2.5) to[american voltage source, l_=$U_{vh}$, i<=$I_{vh}$] (0, 0)
+        (0, 2.5) to[D, l=$D_1$] (3, 2.5)
+        to[R, l=$R_1$] (3, 0)
+        to[short] (0, 0)
+        ;
+      \end{circuitikz}
+      \caption{My first circuit.}
+    \end{center}
+  \end{figure}
+
+\newpage
+\section{Viri}
+\begin{itemize}
+    \item prazen vir k nima pomena
+\end{itemize}
+\end{document}
