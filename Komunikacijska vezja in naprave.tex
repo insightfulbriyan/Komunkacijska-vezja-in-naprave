@@ -33,7 +33,8 @@
 \renewcommand{\thesubparagraph}{\theparagraph.\arabic{subparagraph}}
 
 \renewcommand{\labelnamepunct}{\addcomma\space}
-\DeclareFieldFormat[article, online]{title}{#1}
+\DeclareFieldFormat[article]{title}{#1}
+\DeclareFieldFormat[online]{title}{\mkbibemph{#1}}
 
 \DefineBibliographyStrings{slovene}{
   andothers = {et. al\adddot},
@@ -90,22 +91,26 @@
 
 \newpage
 \section{Analogna komunikacija}
-\subsection{Začetki radia (in radioamaterstva)}
-\subsubsection{Zgodovina radia}
-\subsubsection{Radioamaterstvo}
-\subsection{Analogni signali}
-\subsubsection{Amplitudna modulacija}
-\paragraph{Nek po poglavje}
-\paragraph{Nek drug po poglavje}
-\subsubsection{Frekvenčna modulacija}
-\paragraph{Nek po poglavje}
-\paragraph{Nek drug po poglavje}
+    \subsection{Začetki radia (in radioamaterstva)}
+        \subsubsection{Zgodovina radia}
+            Prav vsi poznamo radio. To je tista majhna naprava v avtu, ki voznikom (in potnikom) olajša čas, ki so ga prisiljeni preživieti za volanom. 
+            Veliko ljudi pa se ne zaveda da je radio mnogo več. Slovar slovenkega knjižnega jezika s prvim pomenom definira radio kot \textit{naprava za oddajanje in sprejemanje električnih impulzov, signalov po radijskih valovih}. \cite{SSKJ-radio}\\
+            Leta 1895 \cite{ppt} je potekal prvi prenos sporočila s pomočjo radijskih valov, 8 let kasneje pa prva uspešna (enosmerna) komunikacija iz ZDA v Združeno kraljestvo. 
+            Leta 1920 sta v ZDA in Veliki Brtaniji pričeli delovati prvi radiodifuzni\footnote{radiodifuzija - oddajanje radijskih signalov namenjenih polušanju} potaji, leta 1928 pa je Radio Ljubljana posala prva radiodifuzna postaja v Sloveniji.
+        \subsubsection{Radioamaterstvo}
+    \subsection{Analogni signali}
+        \subsubsection{Amplitudna modulacija}
+            \paragraph{Nek po poglavje}
+            \paragraph{Nek drug po poglavje}
+        \subsubsection{Frekvenčna modulacija}
+            \paragraph{Nek po poglavje}
+            \paragraph{Nek drug po poglavje}
 
 \newpage
-\subsection{Fourierjeva transformacija}
-\subsubsection{FFT - hitra fourirjeva transformacija}
-\subsection{Problemi analognih komunikacij}
-Tole je pomembno besedilo
+    \subsection{Fourierjeva transformacija}
+        \subsubsection{FFT - hitra fourirjeva transformacija}
+    \subsection{Problemi analognih komunikacij}
+        Tole je pomembno besedilo
 
 \begin{table}[h]
     \centering
@@ -124,42 +129,42 @@ Tole je pomembno besedilo
 
 \newpage
 \section{Digitalna komunikacija}
-\subsection{Prednosti in slabosti digitalne komunikacije}
-\subsection{Problemi digitalnih komunikacij}
-\subsubsection{Bitflips}
-\subsection{Rešitve problemov}
-\subsubsection{Error correction}
-\paragraph{Reed-Solomon kod}
-\paragraph{tisto s polinomi in črno magijo}
+    \subsection{Prednosti in slabosti digitalne komunikacije}
+    \subsection{Problemi digitalnih komunikacij}
+        \subsubsection{Bitflips}
+    \subsection{Rešitve problemov}
+        \subsubsection{Error correction}
+            \paragraph{Reed-Solomon kod}
+            \paragraph{tisto s polinomi in črno magijo}
 
 \newpage
 \section{Empirični del}
-\subsection{Analogna vezja}
+    \subsection{Analogna vezja}
 
 
 \newpage
-\subsection{Digitalna vezja}
-\begin{figure}[h!]
-    \begin{center}
-        \caption{Moje prvo \LaTeX vezje}
-        \begin{circuitikz} \draw
-            (0, 2.5) to[american voltage source, l_=$U_{vh}$, i<=$I_{vh}$] (0, 0)
-            (0, 2.5) to[D, l=$D_1$] (3.5, 2.5)
-            to[R, l=$R_1$] (3.5, 0)
-            to[short] (0, 0)
-            ;
-        \end{circuitikz}
-        \label{fig:vezje1}
-    \end{center}
-\end{figure}
+    \subsection{Digitalna vezja}
+        \begin{figure}[h!]
+            \begin{center}
+                \caption{Moje prvo \LaTeX vezje}
+                \begin{circuitikz} \draw
+                    (0, 2.5) to[american voltage source, l_=$U_{vh}$, i<=$I_{vh}$] (0, 0)
+                    (0, 2.5) to[D, l=$D_1$] (3.5, 2.5)
+                    to[R, l=$R_1$] (3.5, 0)
+                    to[short] (0, 0)
+                    ;
+                \end{circuitikz}
+                \label{fig:vezje1}
+            \end{center}
+        \end{figure}
 
 \newpage
 
 \begingroup
-\makeatletter
-\section{Viri in literatura}
-\nocite{*}
-\printbibliography[heading=none]
-\makeatother
+    \makeatletter
+        \section{Viri in literatura}
+            \nocite{*}
+            \printbibliography[heading=none]
+    \makeatother
 \endgroup
 \end{document}
