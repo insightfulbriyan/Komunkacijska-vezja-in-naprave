@@ -6,6 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - run: mkdir /opt/hostedtoolcache/
+      - run: mkdir /opt/hostedtoolcache/texlive/
       - run: mkdir /opt/hostedtoolcache/texlive/bin/
       - uses: paolobrasolin/setup-texlive-action@v1
         with:
