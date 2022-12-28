@@ -10,5 +10,5 @@ jobs:
       - uses: paolobrasolin/setup-texlive-action@v1
         with:
           profile-path: ${{ github.workspace }}/.github/texlive.profile
-          packages-path: ${{ github.workspace / }}/.github/texlive.packages
+          packages-path: ${{ github.workspace }}/.github/texlive.packages
       - run: pdflatex Komunikacijska\ vezja\ in\ naprave.tex
