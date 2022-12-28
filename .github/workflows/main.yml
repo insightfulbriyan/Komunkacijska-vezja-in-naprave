@@ -4,10 +4,11 @@ on: push
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: linux-latest
     steps:
+      - run: mkdir /opt/hostedtoolcache/texlive/bin
       - uses: paolobrasolin/setup-texlive-action@v1
         with:
           profile-path: ${{ github.workspace }}/.github/texlive.profile
-          packages-path: ${{ github.workspace }}/.github/texlive.packages
+          packages-path: ${{ github.workspace / }}/.github/texlive.packages
       - run: pdflatex Komunikacijska\ vezja\ in\ naprave.tex
