@@ -1,0 +1,13 @@
+name: Build LaTeX
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: paolobrasolin/setup-texlive-action@v1
+        with:
+          profile-path: ${{ github.workspace }}/.github/texlive.profile
+          packages-path: ${{ github.workspace }}/.github/texlive.packages
+      - run: pdflatex Komunikacijska\ vezja\ in\ naprave.tex
