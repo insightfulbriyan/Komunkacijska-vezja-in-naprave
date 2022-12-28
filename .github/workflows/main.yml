@@ -3,7 +3,7 @@ on: push
 jobs:
     build:
         runs-on: ubuntu-latest
-#        container: registry.gitlab.com/islandoftex/images/texlive:latest
+        container: registry.gitlab.com/islandoftex/images/texlive:latest
         steps:
             - run: ls ${{ github.workspace }}
             - run: echo ${{ github.workspace }}
