@@ -5,7 +5,7 @@ jobs:
         runs-on: ubuntu-latest
         container: registry.gitlab.com/islandoftex/images/texlive:latest
         steps:
-            - run: wget https://raw.githubusercontent.com/Akaj-lab/Komunkacijska-vezja-in-naprave/master/Komunikacijska%20vezja%20in%20naprave.tex
+            - run: curl https://raw.githubusercontent.com/Akaj-lab/Komunkacijska-vezja-in-naprave/master/Komunikacijska%20vezja%20in%20naprave.tex
             - run: arara -lv "Komunikacijska vezja in naprave"
 #            
 #            - name: Upload math result for job 1
