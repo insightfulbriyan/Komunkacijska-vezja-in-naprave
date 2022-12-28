@@ -4,9 +4,9 @@ on: push
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: linux-latest
     steps:
-      - run: mkdir C:\hostedtoolcache\windows\texlive\bin
+      - run: mkdir /opt/hostedtoolcache/texlive/bin/
       - uses: paolobrasolin/setup-texlive-action@v1
         with:
           profile-path: ${{ github.workspace }}/.github/texlive.profile
