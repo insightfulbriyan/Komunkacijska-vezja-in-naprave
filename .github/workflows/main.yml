@@ -5,7 +5,7 @@ jobs:
         runs-on: ubuntu-latest
         container: registry.gitlab.com/islandoftex/images/texlive:latest
         steps:
-            - run: apt update && https://raw.githubusercontent.com/Akaj-lab/Komunkacijska-vezja-in-naprave/master/Komunikacijska%20vezja%20in%20naprave.texapt install wget
+            - run: apt update && apt install wget
             - run: wget https://raw.githubusercontent.com/Akaj-lab/Komunkacijska-vezja-in-naprave/master/Komunikacijska%20vezja%20in%20naprave.tex
             - run: ls -la
             - run: arara -lv "Komunikacijska vezja in naprave"
