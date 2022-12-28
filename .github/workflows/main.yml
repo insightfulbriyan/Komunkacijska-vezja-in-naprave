@@ -1,12 +1,14 @@
-image: registry.gitlab.com/islandoftex/images/texlive:latest
+on: push
 
-before_script:
-  - apt-get update && apt-get install -y openjdk-8-jre && rm -rf /var/lib/apt/lists/*
-  - tlmgr update --self --all
-
-build:
-  script:
-    - arara -lv document.tex
-  artifacts:
-    paths:
-      - ./*.pdf
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        container: registry.gitlab.com/islandoftex/images/texlive:latest
+        steps:
+            - run: arara -lv Komunikacijska\ vezja\ in\ naprave.tex
+            
+            - name: Upload math result for job 1
+              uses: actions/upload-artifact@v3.1.1
+              with:
+                  name: homework
+                  path: ./*.pdf
