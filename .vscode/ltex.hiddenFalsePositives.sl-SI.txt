@@ -1,4 +1,0 @@
-{"rule":"MORFOLOGIK_RULE_SL_SI","sentence":"^\\QZveza radioamaterjev Slovenije podeljuje dve t.i.\\E$"}
-{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qdiplomi.\\E$"}
-{"rule":"ZATO_BREZ_VEJICE","sentence":"^\\QZa legalno delovanje morajo radioamaterji opraviti izpit, ena izmed dejavnosti aktivnih radioamaterjev je zato izobraževanje.\\E$"}
-{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qradiodifuzija – oddajanje radijskih signalov namenjenih poslušanju\\E$"}
