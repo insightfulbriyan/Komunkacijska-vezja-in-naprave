@@ -6,10 +6,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: mkdir /opt/hostedtoolcache/texlive/
-      - run: mkdir /opt/hostedtoolcache/texlive/bin/
-      - uses: paolobrasolin/setup-texlive-action@v1
-        with:
-          profile-path: ${{ github.workspace }}/.github/texlive.profile
-          packages-path: ${{ github.workspace }}/.github/texlive.packages
-      - run: pdflatex Komunikacijska\ vezja\ in\ naprave.tex
+      - uses: aergus/latex@latest
+      - run: latexmk -pdf 'Komunikaijska vezja in naprave.tex' -jobname=com
