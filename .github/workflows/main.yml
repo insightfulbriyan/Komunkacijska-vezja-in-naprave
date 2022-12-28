@@ -3,10 +3,10 @@ on: push
 jobs:
     build:
         runs-on: ubuntu-latest
-        container: registry.gitlab.com/islandoftex/images/texlive:latest
+#        container: registry.gitlab.com/islandoftex/images/texlive:latest
         steps:
             - run: ls ${{ github.workspace }}
-            - run: pwd
+            - run: echo ${{ github.workspace }}
 #            - run: arara -lv "Komunikacijska vezja in naprave"
 #            
 #            - name: Upload math result for job 1
