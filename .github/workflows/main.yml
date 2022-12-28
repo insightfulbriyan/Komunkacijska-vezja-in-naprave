@@ -9,7 +9,7 @@ jobs:
             - run: git clone https://github.com/Akaj-lab/Komunkacijska-vezja-in-naprave.git tmp
             - run: cd tmp
             - run: ls -la
-            - run: pdflatex "Komunikacijska vezja in naprave.tex"
+            - run: cd tmp && pdflatex "Komunikacijska vezja in naprave.tex"
 #            
 #            - name: Upload math result for job 1
 #              uses: actions/upload-artifact@v3.1.1
