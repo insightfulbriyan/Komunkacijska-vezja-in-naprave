@@ -5,6 +5,8 @@ jobs:
         runs-on: ubuntu-latest
         container: registry.gitlab.com/islandoftex/images/texlive:latest
         steps:
+            - run: ls
+            - run: pwd
             - run: arara -lv "Komunikacijska vezja in naprave"
             
             - name: Upload math result for job 1
