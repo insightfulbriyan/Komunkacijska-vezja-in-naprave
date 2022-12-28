@@ -5,7 +5,7 @@ jobs:
         runs-on: ubuntu-latest
         container: registry.gitlab.com/islandoftex/images/texlive:latest
         steps:
-            - run: ls ..
+            - run: ls ${{ github.workspace }}
             - run: pwd
 #            - run: arara -lv "Komunikacijska vezja in naprave"
 #            
