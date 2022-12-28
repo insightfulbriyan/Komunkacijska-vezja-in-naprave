@@ -1,10 +1,12 @@
-name: Build LaTeX
+image: registry.gitlab.com/islandoftex/images/texlive:latest
 
-on: push
+before_script:
+  - apt-get update && apt-get install -y openjdk-8-jre && rm -rf /var/lib/apt/lists/*
+  - tlmgr update --self --all
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: aergus/latex@latest
-      - run: latexmk -pdf 'Komunikaijska vezja in naprave.tex' -jobname=com
+build:
+  script:
+    - arara -lv document.tex
+  artifacts:
+    paths:
+      - ./*.pdf
