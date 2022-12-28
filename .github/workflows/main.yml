@@ -5,7 +5,7 @@ jobs:
         runs-on: ubuntu-latest
         container: registry.gitlab.com/islandoftex/images/texlive:latest
         steps:
-            - run: apt update && apt install git
+            - run: apt update && apt install -y git
             - run: git clone https://github.com/Akaj-lab/Komunkacijska-vezja-in-naprave.git
             - run: cd Komunikacijska-vezja-in-naprave
             - run: ls -la
