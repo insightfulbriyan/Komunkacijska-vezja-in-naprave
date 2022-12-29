@@ -1,23 +1,28 @@
 \documentclass[12pt]{article}
 
-\usepackage[a4paper, margin=2.5cm]{geometry}
-\usepackage[utf8]{inputenc}                             % UTF8 enkodiranje
-\usepackage[slovene]{babel}                             % Slovenščina
-\usepackage[pdfusetitle, hidelinks, unicode]{hyperref}  % Nastavi atribute PDF-ja, ne označuj povezav
-\usepackage{microtype}                                  % Podzavestne izboljšave za tipografijsko perfekcijo :)
-\usepackage{enumitem}                                   % Seznami za člene
-\usepackage{graphicx}                                   % Vključitev slik
-\usepackage{dirtytalk}                                  % Citat
-\usepackage{listings}                                   % Kodni blok
+\usepackage[
+    a4paper, 
+    margin=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}         % UTF8 enkodiranje
+\usepackage[slovene]{babel}         % Slovenščina
+\usepackage[
+    pdfusetitle, 
+    hidelinks, 
+    unicode]{hyperref}  % Nastavi atribute PDF-ja, ne označuj povezav
+\usepackage{microtype}              % Podzavestne izboljšave za tipografijsko perfekcijo :)
+\usepackage{enumitem}               % Seznami za člene
+\usepackage{graphicx}               % Vključitev slik
+\usepackage{dirtytalk}              % Citat
+\usepackage{listings}               % Kodni blok
 \usepackage{fancyvrb}
-\usepackage[font=]{caption}                             % Required for specifying captions
-\usepackage[normalem]{ulem}                             % Krašanje enot v enačbi
-\usepackage{times}                                      % Times New Roman pisava
+\usepackage[font=]{caption}         % Required for specifying captions
+\usepackage[normalem]{ulem}         % Krašanje enot v enačbi
+\usepackage{times}                  % Times New Roman pisava
 \usepackage{tikz} 
-\usepackage[european]{circuitikz}                       % Električna vezja
-\usepackage{datetime}                                   % Datum
+\usepackage[european]{circuitikz}   % Električna vezja
+\usepackage{datetime}               % Datum
 \usepackage{csquotes}
-\usepackage[style=ieee, maxbibnames=3, minbibnames=1, maxcitenames=1, mincitenames=1]{biblatex}                       % Navajanje virov
+\usepackage[style=ieee, maxbibnames=3, minbibnames=1, maxcitenames=1, mincitenames=1]{biblatex}                      % Navajanje virov
 \addbibresource{viri.bib}
 
 \setlength{\parindent}{0em}
@@ -43,6 +48,7 @@
 
 \newdateformat{MMYYYYdate}{\monthname[\THEMONTH] \THEYEAR}
 
+\title{Komunikacijska vezja in naprave}
 \author{Jaka Kovač, G 3. b}
 
 \begin{document}
@@ -55,7 +61,7 @@
     \vspace{\fill} 
     Strokovno poročilo pri predmetu elektrotehnika
 
-    \title{Komunikacijska vezja in naprave}
+    \Huge{\textbf{Komunikacijska vezja in naprave}}
 
     \normalsize
     Podnaslov seminarske naloge k si ga še nism izmislu
@@ -63,7 +69,7 @@
 
     Mentor: Anton Orehek, uni. dipl. inž., prof. \hfill Avtor: Jaka Kovač, G 3. b\\
     \null
-    Ljubljana, december 2022 - \MMYYYYdate\today
+    Ljubljana, december 2022 – \MMYYYYdate\today
 \end{center}
 \newpage
 \null
@@ -90,27 +96,77 @@
 
 
 \newpage
+\section{Uvod}
+\newpage
 \section{Analogna komunikacija}
     \subsection{Začetki radia (in radioamaterstva)}
         \subsubsection{Zgodovina radia}
-            Prav vsi poznamo radio. To je tista majhna naprava v avtu, ki voznikom (in potnikom) olajša čas, ki so ga prisiljeni preživeti za volanom. 
-            Veliko ljudi pa se ne zaveda, da je radio mnogo več. Slovar slovenskega knjižnega jezika s prvim pomenom definira radio kot \textit{naprava za oddajanje in sprejemanje električnih impulzov, signalov po radijskih valovih}. \cite{SSKJ-radio}\\
-            Leta 1895 \cite{ppt} je potekal prvi prenos sporočila s pomočjo radijskih valov, osem let kasneje pa prva uspešna (enosmerna) komunikacija iz ZDA v Združeno kraljestvo. 
-            Leta 1920 sta v ZDA in Veliki Britaniji pričeli delovati prvi radiodifuzni\footnote{radiodifuzija – oddajanje radijskih signalov namenjenih poslušanju} postaji, leta 1928 pa je Radio Ljubljana postala prva radiodifuzna postaja v Sloveniji.
+            Prav vsi poznamo radio. To je tista majhna naprava v avtu, ki 
+            voznikom (in potnikom) olajša čas, ki so ga prisiljeni preživeti za
+            volanom. Veliko ljudi pa se ne zaveda, da je radio mnogo več. Slovar
+            slovenskega knjižnega jezika s prvim pomenom definira radio
+            kot \textit{naprava za oddajanje in sprejemanje električnih 
+            impulzov, signalov po radijskih valovih}. \cite{SSKJ-radio}\\
+            Leta 1895 \cite{ppt} je potekal prvi prenos sporočila s pomočjo 
+            radijskih valov, osem let kasneje pa prva uspešna (enosmerna) 
+            komunikacija iz ZDA v Združeno kraljestvo. Leta 1920 sta v ZDA in 
+            Veliki Britaniji pričeli delovati prvi radiodifuzni\footnote{
+            radiodifuzija – oddajanje radijskih signalov namenjenih poslušanju} 
+            postaji, leta 1928 pa je Radio Ljubljana postala prva radiodifuzna 
+            postaja v Sloveniji.
         \subsubsection{Radioamaterstvo}
-            V \textit{Priročniku za radioamaterje} je RADIOAMATERSTVO predstavljeno z: \textit{"}Zelo poenostavljeno bi lahko rekli, da je to ljubiteljsko, nepoklicno ukvarjanje z radiom oziroma radiotehniko." \cite{HAM-prirocnik}
-            Ker sem tudi sam radioamater vem, da ta dejavnost pomeni mnogo več. \\
-            Za legalno delovanje morajo radioamaterji opraviti izpit, ena izmed dejavnosti aktivnih radioamaterjev je zato izobraževanje.
-            Druga dejavnost so prirejanje in udeležba tekmovanj. Zveza radioamaterjev Slovenije podeljuje dve t.i. diplomi.\\
-            Radioamaterji po potrebi tudi pomagajo pri večjih nesrečah. To jim narekuje kodeks ARON (aktivnosti radioamaterjev ob nesrečah in nevarnostih), ki se ga je nazadnje množično aktiviralo ob potresu leta 2020 (pred tem pa ob žledu)
+            V \textit{Priročniku za radioamaterje} je RADIOAMATERSTVO 
+            predstavljeno z: \textit{"}Zelo poenostavljeno bi lahko rekli, da je
+            to ljubiteljsko, nepoklicno ukvarjanje z radiom oziroma 
+            radiotehniko." \cite{HAM-prirocnik} Ker sem tudi sam radioamater 
+            vem, da ta dejavnost pomeni mnogo več. \\
+            Za legalno delovanje morajo radioamaterji opraviti izpit, ena izmed
+            dejavnosti aktivnih radioamaterjev je zato izobraževanje. Druga 
+            dejavnost so prirejanje in udeležba tekmovanj. Zveza radioamaterjev
+            Slovenije podeljuje dve t.i. diplomi.\\
+            Radioamaterji po potrebi tudi pomagajo pri večjih nesrečah. To jim 
+            narekuje kodeks ARON (aktivnosti radioamaterjev ob nesrečah in 
+            nevarnostih), ki se ga je nazadnje množično aktiviralo ob potresu 
+            leta 2020 (pred tem pa ob žledu)
     \subsection{Analogni signali}
-            Analogni signali so tisti signali, ki lahko zavzamejo vse vrednosti na določenem intervalu. Čas je primer analogne vrednosti, ker mu ne moremo odločiti najmanjše enote za katero bi se spremenil. Urni kazalec se premika s stalno hitrostjo. To pomeni da se v neskončno majhnem intervalu časa vseeno spremeni za nek delež stopinje, vendar pa ljudje tega navadno ne opazimo. 
-        \subsubsection{Amplitudna modulacija}
-            \paragraph{Nek po poglavje}
-            \paragraph{Nek drug po poglavje}
-        \subsubsection{Frekvenčna modulacija}
-            \paragraph{Nek po poglavje}
-            \paragraph{Nek drug po poglavje}
+            Analogni signali so tisti signali, ki lahko zavzamejo vse vrednosti
+            na določenem intervalu. Čas je primer analogne vrednosti, ker mu ne
+            moremo odločiti najmanjše enote, za katero bi se spremenil. Urni
+            kazalec se premika s stalno hitrostjo. To pomeni, da se v neskončno
+            majhnem intervalu časa vseeno spremeni za nek delež stopinje, vendar
+            pa ljudje tega navadno ne opazimo.\\
+            Digitalni signali pa so tisti signali, ki lahko zavzamejo samo 
+            določene vrednosti. Na primer digitalna ura. "Kazalci" na taki uri 
+            (številke) ne morejo zavzeti katerekoli pozicije med dvema 
+            številkama, ampak samo celoštevilčne vrednosti med njima.\\
+            Če imamo torej dve uri, eno analogno in eno digitalno, ki prikazuje
+            samo ure, lahko na analogni uri vseeno razberemo, kako blizu 
+            naslednje ure smo, na digitalni pa tega žal ne bomo mogli doseči.
+        \subsubsection{Modulacija}
+            Modulacija je postopek, pri katerem spreminjamo lastnosti 
+            (nosilnega) periodičnega signala v odvisnosti od vhodnega signala.
+            
+            \begin{figure}
+                \centering
+                \caption{Vhodni signal, nosilni signal, AM in FM}
+                \includegraphics[width=0.3\linewidth]{slike/anfm.png}
+                \label{fig:Vhodni signal, nosilni signal, AM in FM}
+                \\
+                Vir slike 1: \url{https://global.oup.com/us/companion.websites/
+                fdscontent/uscompanion/us/static/companion.websites/
+                9780199922963/images/AM_FM.gif}
+            \end{figure}
+
+            \paragraph{Amplitudna modulacija} \mbox{}\\ 
+                Pri amplitudni modulaciji se v odvisnosti vhodnega signala 
+                spreminja amplituda. 
+                Nosilni signal oblike $n(t) = N\sin(\omega_{n} t + \phi_{n})$ in 
+                vhodni signal $s$ lahko amplitudno moduliramo in tak signal 
+                zapišemo kot: $i(t) = [A + s(t)]\cdot n(t)$. Tako moduliran 
+                signal so oddajali prvi radijski programi.\\
+                Prednost 
+            \paragraph{Frekvenčna modulacija} \mbox{}\\
+            
 
     \newpage
     \subsection{Fourierova transformacija}
