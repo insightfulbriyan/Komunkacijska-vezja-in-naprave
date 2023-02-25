@@ -23,7 +23,7 @@
 \usepackage{datetime}               % Datum
 \usepackage{csquotes}
 \usepackage[style=ieee, maxbibnames=3, minbibnames=1, maxcitenames=1, mincitenames=1]{biblatex}                      % Navajanje virov
-\addbibresource{viri.bib}
+\bibliography{viri}
 
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1ex}
@@ -64,7 +64,7 @@
     \Huge{\textbf{Komunikacijska vezja in naprave}}
 
     \normalsize
-    Podnaslov seminarske naloge k si ga še nism izmislu
+    Uporaba matematike v digitalnih komunikacijah
     \vspace{\fill}
 
     Mentor: Anton Orehek, uni. dipl. inž., prof. \hfill Avtor: Jaka Kovač, G 3. b\\
@@ -147,35 +147,48 @@
         so še vedno dovzetni za različne motnje.
         \subsubsection{Bitflips}
             Bit je najmanjša količina informacij, ki jih lahko signal prenese. 
-            Načeloma jih označujemo z 0 (logično stanje: nepravilno) in 1 
-            (logično stanje: pravilno). Bitflip je dogodek, ko se 0 spremeni v 1
-            ali 1 v 0. To se lahko zgodi zaradi zunanjih vplivov, na primer 
-            inducirane napetosti zaradi bližine drugega vodnika, ki prenaša 
-            signal ali kozmičnega sevanja. 
-    \subsection{Error correction}
-        \subsubsection{Hammingov kod}
-        \paragraph{Cyclic redundancy check}
-
-\newpage
-\section{Empirični del}
-    \subsection{Analogna vezja}
-
-
-\newpage
-    \subsection{Digitalna vezja}
+            Načeloma jih označujemo z nič (logično stanje: nepravilno) in ena 
+            (logično stanje: pravilno). Bitflip je dogodek, ko se nič spremeni v
+            ena ali ena v nič. To se lahko zgodi zaradi zunanjih vplivov, na 
+            primer inducirane napetosti zaradi bližine drugega vodnika, ki 
+            prenaša signal ali kozmičnega sevanja \cite{veritasium_computers}.
+    \subsection{Pretvorba sporočila} 
+        Ko so se pričele digitalne komunikacije je bilo potrebno ustvariti
+        standard za prenos sporočil. En izmed takih standardov je tudi ASCII
+        (American Standard Code for Information Interchange). Sedaj pa se
+        večinoma uporablja sistem UTF-8, ki je bolj vsestranski, saj podpira
+        skoraj 300 000 alfanumeričnih, nadzornih ipd. znakov.
         \begin{figure}[h!]
             \begin{center}
-                \caption{Moje prvo \LaTeX vezje}
-                \begin{circuitikz} \draw
-                    (0, 2.5) to[american voltage source, l_=$U_{vh}$, i<=$I_{vh}$] (0, 0)
-                    (0, 2.5) to[D, l=$D_1$] (3.5, 2.5)
-                    to[R, l=$R_1$] (3.5, 0)
-                    to[short] (0, 0)
-                    ;
-                \end{circuitikz}
-                \label{fig:vezje1}
+                \includegraphics[width=11cm, keepaspectratio]{slike/Ascii_table-572996368.png}
+                \caption{Tabla ASCII znakov}
+                \caption*{\footnotesize Vir: \url{https://computersciencewiki.org/index.php/File:Ascii_table.png}}
+                \label{fig:tabelaZnakov}
             \end{center}
         \end{figure}
+    \subsection{Error correction}
+        Odpravljanje napak (ang.: error correction) je skupek načeloma 
+        matematičnih algoritmov s katerimi lažje opazimo in popravimo napake pri
+        prenosu sporočila.
+        Eden izmed prvih načinov prepoznave in odprave napak je Hammingov kod. 
+        Najprej je potrebno razdeiti sporočilo na $
+        \subsubsection{Cyclic redundancy check}
+
+\newpage
+\section{Empirični del – Digitalna vezja}
+    \begin{figure}[h!]
+        \begin{center}
+            \caption{Moje prvo \LaTeX vezje}
+            \begin{circuitikz} \draw
+                (0, 2.5) to[american voltage source, l_=$U_{vh}$, i<=$I_{vh}$] (0, 0)
+                (0, 2.5) to[D, l=$D_1$] (3.5, 2.5)
+                to[R, l=$R_1$] (3.5, 0)
+                to[short] (0, 0)
+                ;
+            \end{circuitikz}
+            \label{fig:vezje1}
+        \end{center}
+    \end{figure}
 
 \newpage
 
