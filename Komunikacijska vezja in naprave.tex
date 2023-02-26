@@ -22,6 +22,7 @@
 \usepackage[european]{circuitikz}   % Električna vezja
 \usepackage{datetime}               % Datum
 \usepackage{csquotes}
+\usepackage{braket}
 \usepackage[style=ieee, maxbibnames=3, minbibnames=1, maxcitenames=1, mincitenames=1]{biblatex}                      % Navajanje virov
 \bibliography{viri}
 
@@ -29,7 +30,7 @@
 \setlength{\parskip}{1ex}
 
 \setcounter{secnumdepth}{5}
-\setcounter{tocdepth}{5}
+\setcounter{tocdepth}{3}
 
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
@@ -83,7 +84,6 @@
 \newpage
 \tableofcontents
 
-\newpage
 \begingroup
 \makeatletter
 \section*{Slike}
@@ -161,7 +161,7 @@
         \begin{figure}[h!]
             \begin{center}
                 \includegraphics[width=11cm, keepaspectratio]{slike/Ascii_table-572996368.png}
-                \caption{Tabla ASCII znakov}
+                \caption{ASCII znaki}
                 \caption*{\footnotesize Vir: \url{https://computersciencewiki.org/index.php/File:Ascii_table.png}}
                 \label{fig:tabelaZnakov}
             \end{center}
@@ -171,20 +171,66 @@
         matematičnih algoritmov s katerimi lažje opazimo in popravimo napake pri
         prenosu sporočila.
         Eden izmed prvih načinov prepoznave in odprave napak je Hammingov kod. 
-        Najprej je potrebno razdeiti sporočilo na $
+        Najprej je potrebno razdeliti sporočilo na dele velikosti $2^n - n - 1$,
+        kjer večji $n$ poveča učinkovitost, saj se zmanjša delež paritetnih
+        bitov v oddanem sporočilu, hkrati pa se poveča verjetnost, da bo prišlo
+        do nepopravljive napake.
         \subsubsection{Cyclic redundancy check}
+            Cyclic redundancy check ali CRC je bolj napredna metoda. Da bi jo 
+            lažje razložil je najprej potrebno vpeljati nekaj matematičnih 
+            pojmov.
+            \paragraph{Končna polja}
+                V algebri je polje ali univerzalna množica, množica vseh števil
+                s katerimi operiramo. Navadno so to realna števila morda tudi
+                kompleksna. Moč obeh teh množic je neskončno, kaj pa, če bi
+                uporabili končno množico. Definirajmo univerzalno množico tako 
+                da vsebuje le dva elementa $U = \set{0, 1}$.\\
+                Poskusimo definirati seštevanje in odštevanje:\\
+                \begin{table}[h!]
+                    \centering
+                    \begin{tabular}{l p{0.2\linewidth}}
+                        $0 + 0 = 0$  & $0 - 0 = 0$ \\
+                        $0 + 1 = 1$  & $0 - 1 = 1$ \\
+                        $1 + 0 = 1$  & $1 - 0 = 1$ \\
+                        $1 + 1 = 0$  & $1 - 1 = 0$ \\
+                    \end{tabular}
+                \end{table}
+
+                ter množenje in deljenje:\\
+                \begin{table}[h!]
+                    \centering
+                    \begin{tabular}{l p{0.2\linewidth}}
+                        $0 + 0 = 0$  &  \\
+                        $0 + 1 = 1$  & $0 / 1 = 0$\\
+                        $1 + 0 = 1$  & $1 / 1 = 1$\\
+                        $1 + 1 = 0$  &  \\
+                    \end{tabular}
+                \end{table}
+
+                Lahko se je prepričati, da sta tako seštevan kot množenje
+                asociativna in komutativna. Prav tako veljata identiteti (0 je 
+                nevtralni element za seštevanje, 1 za množenje). Še vedno velja 
+                zakon o združevanju, prav tako pa lahko določimo nasprotne in 
+                obratne vrednosti. 
 
 \newpage
 \section{Empirični del – Digitalna vezja}
     \begin{figure}[h!]
         \begin{center}
-            \caption{Moje prvo \LaTeX vezje}
-            \begin{circuitikz} \draw
-                (0, 2.5) to[american voltage source, l_=$U_{vh}$, i<=$I_{vh}$] (0, 0)
-                (0, 2.5) to[D, l=$D_1$] (3.5, 2.5)
-                to[R, l=$R_1$] (3.5, 0)
-                to[short] (0, 0)
-                ;
+            \caption{Vezje logičnih enot za računanje 16-bitnega CRC\\
+            in polinomom $x^{16} + x^{12} + x^5 + 1$}
+            \begin{circuitikz}
+                    \draw (0, 0) node[latch](A){};
+                    \draw (3, 0) node[latch](B){};
+                    \draw (6, 0) node[latch](C){};
+                    \draw (9, 0) node[latch](D){};
+                    \draw (12, 0) node[european xor port](X){};
+                    % \draw (12, 0) node[latch](E){};
+                    % \draw (15, 0) node[latch](F){};
+                    % \draw (18, 0) node[latch](G){};
+                    % \draw (21, 0) node[latch](H){};
+                    % \draw (3, 0) node[latch](B){};
+                    \draw (A.pin 6) -- (B.pin 1); 
             \end{circuitikz}
             \label{fig:vezje1}
         \end{center}
