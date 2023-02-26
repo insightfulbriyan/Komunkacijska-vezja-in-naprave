@@ -1,0 +1,16 @@
+Fitter Status : Successful - Sun Feb 26 09:21:40 2023
+Quartus Prime Version : 22.1std.0 Build 915 10/25/2022 SC Lite Edition
+Revision Name : CRC-Full
+Top-level Entity Name : CRC-Full
+Family : Cyclone 10 LP
+Device : 10CL016YM164C8G
+Timing Models : Final
+Total logic elements : 16 / 15,408 ( < 1 % )
+    Total combinational functions : 3 / 15,408 ( < 1 % )
+    Dedicated logic registers : 16 / 15,408 ( < 1 % )
+Total registers : 16
+Total pins : 4 / 88 ( 5 % )
+Total virtual pins : 0
+Total memory bits : 0 / 516,096 ( 0 % )
+Embedded Multiplier 9-bit elements : 0 / 112 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )
