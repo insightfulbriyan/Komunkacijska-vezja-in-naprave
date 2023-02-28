@@ -23,7 +23,8 @@
 \usepackage{datetime}               % Datum
 \usepackage{csquotes}
 \usepackage{braket}
-\usepackage[style=ieee, maxbibnames=3, minbibnames=1, maxcitenames=1, mincitenames=1]{biblatex}                      % Navajanje virov
+\usepackage[style=ieee, maxbibnames=3, minbibnames=1, 
+    maxcitenames=1, mincitenames=1]{biblatex}                      % Navajanje virov
 \bibliography{viri}
 
 \setlength{\parindent}{0em}
@@ -68,13 +69,16 @@
     Uporaba matematike v digitalnih komunikacijah
     \vspace{\fill}
 
-    Mentor: Anton Orehek, uni. dipl. inž., prof. \hfill Avtor: Jaka Kovač, G 3. b\\
+    Mentor: Anton Orehek, uni. dipl. inž., prof. \hfill Avtor: Jaka Kovač S51JK,
+    G 3. b\\
     \null
     Ljubljana, december 2022 – \MMYYYYdate\today
 \end{center}
 \newpage
+\thispagestyle{empty}
 \null
 \newpage
+\thispagestyle{empty}
 
 %If I had more time I would have written a shorter letter - Mark Twain
 \section*{Povzetek}
@@ -82,6 +86,7 @@
 
 % KAZALO 
 \newpage
+\thispagestyle{empty}
 \tableofcontents
 
 \begingroup
@@ -157,12 +162,15 @@
         standard za prenos sporočil. En izmed takih standardov je tudi ASCII
         (American Standard Code for Information Interchange). Sedaj pa se
         večinoma uporablja sistem UTF-8, ki je bolj vsestranski, saj podpira
-        skoraj 300 000 alfanumeričnih, nadzornih ipd. znakov.
+        skoraj 300 000 alfanumeričnih, nadzornih ipd. znakov 
+        (Slika \ref{fig:tabelaZnakov}).
         \begin{figure}[h!]
             \begin{center}
-                \includegraphics[width=11cm, keepaspectratio]{slike/Ascii_table-572996368.png}
+                \includegraphics[width=11cm, keepaspectratio]
+                {slike/Ascii_table-572996368.png}
                 \caption{ASCII znaki}
-                \caption*{\footnotesize Vir: \url{https://computersciencewiki.org/index.php/File:Ascii_table.png}}
+                \caption*{\footnotesize Vir: \url{https://computersciencewiki.
+                org/index.php/File:Ascii_table.png}}
                 \label{fig:tabelaZnakov}
             \end{center}
         \end{figure}
@@ -200,10 +208,10 @@
                 \begin{table}[h!]
                     \centering
                     \begin{tabular}{l p{0.2\linewidth}}
-                        $0 + 0 = 0$  &  \\
-                        $0 + 1 = 1$  & $0 / 1 = 0$\\
-                        $1 + 0 = 1$  & $1 / 1 = 1$\\
-                        $1 + 1 = 0$  &  \\
+                        $0 * 0 = 0$  &  \\
+                        $0 * 1 = 0$  & $0 / 1 = 0$\\
+                        $1 * 0 = 0$  & $1 / 1 = 1$\\
+                        $1 * 1 = 1$  &  \\
                     \end{tabular}
                 \end{table}
 
@@ -212,26 +220,130 @@
                 nevtralni element za seštevanje, 1 za množenje). Še vedno velja 
                 zakon o združevanju, prav tako pa lahko določimo nasprotne in 
                 obratne vrednosti. 
+            
+            \paragraph{Polinomi}
+                Polinom je linearna kombinacija potenčnih funkcij, ki imajo 
+                nenegativne cele eksponente.
+                $$p_n (x) = \sum_{k=0}^n a_kx^k$$
+                Med polinomi lahko izvajamo matematične operacije. Za izračun
+                CRC bomo potrebovali seštevanje in deljenje. 
+            
+            \newpage
+            \paragraph{Kodiranje sporočila kot polinom}
+                Začnimo s primerom. Predpostavimo, da želimo poslati sporočilo:
+                "Oj!". Najprej ga je potrebno pretvoriti v binarni zapis kar 
+                lahko storimo s tabelo na sliki \ref{fig:tabelaZnakov}.\\
+                Naše sporočilo sedaj zgleda:\\
+
+                \begin{table}[h!]
+                    \centering
+                    \begin{tabular}{ccc}
+                    O        & j        & !        \\
+                    01001111 & 01101010 & 00100001
+                    \end{tabular}
+                \end{table}
+
+                Vendar pa še vedno potrebujemo polinom. Za koeficiente uporabimo
+                binarne števke. Polinom $m(x)$ za naše sporočilo bi torej bil:
+                $$ m(x) = 0 \cdot x^{23} + 1 \cdot x^{22} + 0 \cdot x^{21} + 0 
+                \cdot x^{20} + 0 \cdot x^{19} + 0 \cdot x^{18} + 0 \cdot x^{17} 
+                + 0 \cdot x^{16} + 0 \cdot x^{15} + 0 \cdot x^{14} + 0 \cdot 
+                x^{13} + 0 \cdot x^{12} +0 \cdot x^{11} \\
+                + 0 \cdot x^{10} + 0 \cdot x^{9} + 0 \cdot x^{8} + 0 \cdot x^{7}
+                + 0 \cdot x^{6} + 0 \cdot x^{5} + 0 \cdot x^{4} + 0 \cdot x^{3} 
+                + 0 \cdot x^{2} + 0 \cdot x^{1} +  0 \cdot x^{0} $$
+                $$ m(x) = x^{22} + x^{19} + x^{18} + x^{17} + x^{16} + x^{14} +
+                x^{13} + x^{11} + x^{9} + x^{5} + x^{0}$$
+
+
 
 \newpage
 \section{Empirični del – Digitalna vezja}
     \begin{figure}[h!]
         \begin{center}
-            \caption{Vezje logičnih enot za računanje 16-bitnega CRC\\
-            in polinomom $x^{16} + x^{12} + x^5 + 1$}
-            \begin{circuitikz}
-                    \draw (0, 0) node[latch](A){};
-                    \draw (3, 0) node[latch](B){};
-                    \draw (6, 0) node[latch](C){};
-                    \draw (9, 0) node[latch](D){};
-                    \draw (12, 0) node[european xor port](X){};
-                    % \draw (12, 0) node[latch](E){};
-                    % \draw (15, 0) node[latch](F){};
-                    % \draw (18, 0) node[latch](G){};
-                    % \draw (21, 0) node[latch](H){};
-                    % \draw (3, 0) node[latch](B){};
-                    \draw (A.pin 6) -- (B.pin 1); 
+            \begin{circuitikz} \draw
+                % inicializacija vseh komponent
+                (0, 0.84) node[european xor port](X1){}
+                (X1.in 2) node[anchor=east]{DIN}
+                (1.6, 0) node[latch](D1){}
+                (4.6, 0) node[latch](D2){}
+                (7.6, 0) node[latch](D3){}
+                (10.6, 0) node[latch](D4){}
+                (13.6, 1.5) node[european xor port](X2){}
+                (0, -5) node[latch](D5){}
+                (3, -5) node[latch](D6){}
+                (6, -5) node[latch](D7){}
+                (9, -5) node[latch](D8){}
+                (12, -5) node[latch](D9){}
+                (0, -10) node[latch](D10){}
+                (3, -10) node[latch](D11){}
+                (6.8, -9.16) node[european xor port](X3){}
+                (9, -10) node[latch](D12){}
+                (12, -10) node[latch](D13){}
+                (0, -15) node[latch](D14){}
+                (3, -15) node[latch](D15){}
+                (6, -15) node[latch](D16){}
+                (10, -14.388) node[european and port](A1){}
+                (8, -15) node[european not port, rotate=90](N1){}
+
+                % pot vhodnega signala
+                (X1.out) -| (D1.pin 1)
+                (D1.pin 6) -| (D2.pin 1)
+                (D2.pin 6) -| (D3.pin 1)
+                (D3.pin 6) -| (D4.pin 1)
+                (D4.pin 6) -| (X2.in 2)
+                (X2.out) -| ++(0, -4) -| (D5.pin 1)
+                (D5.pin 6) -| (D6.pin 1)
+                (D6.pin 6) -| (D7.pin 1)
+                (D7.pin 6) -| (D8.pin 1)
+                (D8.pin 6) -| (D9.pin 1)
+                (D9.pin 6) -| ++(0.7, -3.5) -| (D10.pin 1)
+                (D10.pin 6) -| (D11.pin 1)
+                (D11.pin 6) -| (X3.in 2)
+                (X3.out) -| (D12.pin 1)
+                (D12.pin 6) -| (D13.pin 1)
+                (D13.pin 6) -| ++(0.7, -4) -| (D14.pin 1)
+                (D14.pin 6) -| (D15.pin 1)
+                (D15.pin 6) -| (D16.pin 1)
+
+                % poveži CLK
+                (D1.pin 3) to (D1.pin 3 -| X1.in 2) node[anchor=east](CLK){CLK}
+                (D1.pin 3 -| X1.in 2) -| ++(0, -1) node[anchor=east](CLK_H1){}
+                (CLK_H1) -| (D2.pin 3)
+                (CLK_H1) -| (D3.pin 3)
+                (CLK_H1) -| (D4.pin 3)
+                (D5.pin 3) to (D5.pin 3 -| CLK.east) node[anchor=east]{}
+                (D1.pin 3 -| X1.in 2) -| ++(0, -6) node[anchor=east](CLK_H2){}
+                (CLK_H2) -| (D6.pin 3)
+                (CLK_H2) -| (D7.pin 3)
+                (CLK_H2) -| (D8.pin 3)
+                (CLK_H2) -| (D9.pin 3)
+                (D10.pin 3) to (D10.pin 3 -| CLK.east) node[anchor=east]{}
+                (D1.pin 3 -| X1.in 2) -| ++(0, -11) node[anchor=east](CLK_H3){}
+                (CLK_H3) -| (D11.pin 3)
+                (CLK_H3) -| (D12.pin 3)
+                (CLK_H3) -| (D13.pin 3)
+                (D14.pin 3) to (D14.pin 3 -| CLK.east) node[anchor=east]{}
+                (D1.pin 3 -| X1.in 2) -| ++(0, -16) node[anchor=east](CLK_H4){}
+                (CLK_H4) -| (D15.pin 3)
+                (CLK_H4) -| (D16.pin 3)
+                
+                % branje/pisanje
+                (D16.pin 6) -| (A1.in 1)
+                (A1.out) -| ++(4.3, 0) node[anchor=west](A1_H1){}
+                (A1_H1.west) -| ++(0, 6) -| ++(-7, 0) -| (X3.in 1)
+                (A1_H1.west) -| ++(0, 17) -| ++(-1,0) node[anchor=west](A1_H2){}
+                (A1_H2.west) -| (X2.in 1) 
+                (A1_H2.west) -| (X1.in 1) 
+                (A1.in 2) -| (N1.out)
+                (N1.in) |- ++(-9.5,-2) node[anchor=east]{READ}
+
+                % output
+                (D16.pin 6) -| ++(0.2,0) |- ++(-8.8,-3.5) node[anchor=east]{OUT}              
+                ;
             \end{circuitikz}
+            \caption{Vezje logičnih enot za računanje 16-bitnega CRC in 
+            polinomom $x^{16} + x^{12} + x^5 + 1$}
             \label{fig:vezje1}
         \end{center}
     \end{figure}
@@ -239,10 +351,10 @@
 \newpage
 
 \begingroup
-    \makeatletter
+\makeatletter
         \section{Viri in literatura}
-            \nocite{*}
-            \printbibliography[heading=none]
+        \nocite{*}
+        \printbibliography[heading=none]
     \makeatother
-\endgroup
+    \endgroup
 \end{document}
