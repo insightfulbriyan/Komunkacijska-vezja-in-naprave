@@ -26,7 +26,7 @@
 \usepackage{amsmath} % matematika ki izgleda lepo
 \usepackage{amsfonts} % množice
 \usepackage[style=ieee, maxbibnames=3, minbibnames=1, 
-    maxcitenames=1, mincitenames=1]{biblatex}                      % Navajanje virov
+    maxcitenames=1, mincitenames=1, sorting=nyt]{biblatex}                      % Navajanje virov
 \bibliography{viri}
 
 \urlstyle{rm}
@@ -35,7 +35,7 @@
 \setlength{\parskip}{1ex}
 
 \setcounter{secnumdepth}{5}
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{4}
 
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
@@ -98,8 +98,6 @@
 \section*{Slike}
 \@starttoc{lof}
 \let\clearpage\relax
-\section*{Tabele}
-\@starttoc{lot}
 \makeatother
 \endgroup
 
@@ -110,12 +108,12 @@
 \section{Analogna komunikacija}
     \subsection{Zgodovina radia}
         Prav vsi poznamo radio. To je tista majhna naprava v avtu, ki 
-        voznikom (in potnikom) olajša čas, ki so ga prisiljeni preživeti za
+        voznikom (in potnikom) krajša čas, ki so ga prisiljeni preživeti za
         volanom. Veliko ljudi pa se ne zaveda, da je radio mnogo več. Slovar
         slovenskega knjižnega jezika s prvim pomenom definira radio
         kot \textit{naprava za oddajanje in sprejemanje električnih 
         impulzov, signalov po radijskih valovih}. \cite{SSKJ-radio}\\
-        Leta 1895 \cite{ppt} je potekal prvi prenos sporočila s pomočjo 
+        Leta 1895 \cite{ppt} je potekal prvi prenos sporočila z uporabo
         radijskih valov, osem let kasneje pa prva uspešna (enosmerna) 
         komunikacija iz ZDA v Združeno kraljestvo. Leta 1920 sta v ZDA in 
         Veliki Britaniji pričeli delovati prvi radiodifuzni\footnote{
@@ -284,6 +282,7 @@
                 \end{equation}
                 Polinom $p(x)$ je deljiv s polinomom $q(x)$ samo če je $r(x)=0$.
         \subsubsection{Cyclic redundancy check}
+            \paragraph{Generianje CRC}
             Za uporabo CRC algoritma moramo najprej določiti generatorski 
             polinom $g(x)$. Za primer vzemimo: $g(x)=x^{16}+x^{12}+x^5+1$.
             Poskusimo naše sporočilo $m(x)$ deliti z $g(x)$, pri tem pa 
@@ -311,10 +310,12 @@
             \newpage
             Ugotovili smo, da $m(x)$ ni deljiv z $g(x)$. Lahko bi rekli, da je 
             naše sporočilo za ostanek ($r(x)$) preveliko, da bi bilo deljivo. 
-            Od našega sporočila lahko torej odštejemo ostanek.
+            Od našega sporočila lahko torej odštejemo ostanek.\footnote{Zaradi 
+            uporabe končnega polja sta seštevanje in oštevanje zamenljivi 
+            operaciji in zgleda kot da sta se polinoma seštela}
             \begin{equation}
                 \begin{split}
-                    s(x) = & m(x) + r(x)\\
+                    s(x) = & m(x) - r(x)\\
                     = & (x^{38} + x^{35} + x^{34} + x^{33} + x^{32} +
                     x^{30} + x^{29} + x^{27} + x^{25} + x^{21} + x^{16})\\
                     + & (x^{15} + x^{14} + x^{13} + x^8 + x^5 + x^4 + x^3 + 
@@ -323,8 +324,16 @@
             \end{equation}
 
             S tem smo zagotovili, da je sporočilo, ki ga bomo oddali $s(x)$ 
-            deljivo z $g(x)$
-
+            deljivo z $g(x)$.\footnote{Za oddajo sporočila polinom seveda pretvorimo 
+            nazaj v bite, naše sporočilo pa se glasi\\ 
+            10011110110101000100001110000100111110}
+            
+            \paragraph{Validacija CRC}
+            Ko prejmemo sporočilo, ki je bilo zavarovano s CRC lahko prejeto 
+            sporočilo spet delimo z generatorskim polinomom, ostanek pri 
+            deljenju pa mora biti sedaj 0. Če temu ni tako smo lahko prepričani,
+            da smo sporočilo prejeli narobe. Žal ne moremo ugotoviti kje se je 
+            napaka zgodila
 
 
 
