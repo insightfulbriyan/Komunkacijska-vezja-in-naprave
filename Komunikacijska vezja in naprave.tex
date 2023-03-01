@@ -23,9 +23,13 @@
 \usepackage{datetime}               % Datum
 \usepackage{csquotes}
 \usepackage{braket}
+\usepackage{amsmath} % matematika ki izgleda lepo
+\usepackage{amsfonts} % množice
 \usepackage[style=ieee, maxbibnames=3, minbibnames=1, 
     maxcitenames=1, mincitenames=1]{biblatex}                      % Navajanje virov
 \bibliography{viri}
+
+\urlstyle{rm}
 
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1ex}
@@ -179,21 +183,21 @@
         matematičnih algoritmov s katerimi lažje opazimo in popravimo napake pri
         prenosu sporočila.
         Eden izmed prvih načinov prepoznave in odprave napak je Hammingov kod. 
-        Najprej je potrebno razdeliti sporočilo na dele velikosti $2^n - n - 1$,
+        Sporočilo je potrebno razdeliti na dele velikosti $2^n - n - 1$,
         kjer večji $n$ poveča učinkovitost, saj se zmanjša delež paritetnih
         bitov v oddanem sporočilu, hkrati pa se poveča verjetnost, da bo prišlo
         do nepopravljive napake.
-        \subsubsection{Cyclic redundancy check}
+        \subsubsection{Matematični uvod}
             Cyclic redundancy check ali CRC je bolj napredna metoda. Da bi jo 
             lažje razložil je najprej potrebno vpeljati nekaj matematičnih 
             pojmov.
-            \paragraph{Končna polja}
+            \paragraph{Končna polja} \label{sec:polja}
                 V algebri je polje ali univerzalna množica, množica vseh števil
                 s katerimi operiramo. Navadno so to realna števila morda tudi
                 kompleksna. Moč obeh teh množic je neskončno, kaj pa, če bi
                 uporabili končno množico. Definirajmo univerzalno množico tako 
                 da vsebuje le dva elementa $U = \set{0, 1}$.\\
-                Poskusimo definirati seštevanje in odštevanje:\\
+                Poskusimo definirati seštevanje in odštevanje:
                 \begin{table}[h!]
                     \centering
                     \begin{tabular}{l p{0.2\linewidth}}
@@ -204,7 +208,7 @@
                     \end{tabular}
                 \end{table}
 
-                ter množenje in deljenje:\\
+                ter množenje in deljenje:
                 \begin{table}[h!]
                     \centering
                     \begin{tabular}{l p{0.2\linewidth}}
@@ -224,16 +228,20 @@
             \paragraph{Polinomi}
                 Polinom je linearna kombinacija potenčnih funkcij, ki imajo 
                 nenegativne cele eksponente.
-                $$p_n (x) = \sum_{k=0}^n a_kx^k$$
+                \begin{equation}
+                    p_n (x) = \sum_{k=0}^n a_kx^k
+                \end{equation}
                 Med polinomi lahko izvajamo matematične operacije. Za izračun
                 CRC bomo potrebovali seštevanje in deljenje. 
             
             \newpage
             \paragraph{Kodiranje sporočila kot polinom}
-                Začnimo s primerom. Predpostavimo, da želimo poslati sporočilo:
-                "Oj!". Najprej ga je potrebno pretvoriti v binarni zapis kar 
-                lahko storimo s tabelo na sliki \ref{fig:tabelaZnakov}.\\
-                Naše sporočilo sedaj zgleda:\\
+                Začnimo s primerom.\footnote{Za vse nadaljne odstavke bom 
+                uporabil isti primer, ki ga bom ozačil z $m(x)$} 
+                Predpostavimo, da želimo poslati sporočilo: "Oj!". Najprej ga je
+                potrebno pretvoriti v binarni zapis kar lahko storimo s tabelo 
+                na sliki \ref{fig:tabelaZnakov}.\\
+                Naše sporočilo sedaj zgleda:
 
                 \begin{table}[h!]
                     \centering
@@ -245,15 +253,78 @@
 
                 Vendar pa še vedno potrebujemo polinom. Za koeficiente uporabimo
                 binarne števke. Polinom $m(x)$ za naše sporočilo bi torej bil:
-                $$ m(x) = 0 \cdot x^{23} + 1 \cdot x^{22} + 0 \cdot x^{21} + 0 
-                \cdot x^{20} + 0 \cdot x^{19} + 0 \cdot x^{18} + 0 \cdot x^{17} 
-                + 0 \cdot x^{16} + 0 \cdot x^{15} + 0 \cdot x^{14} + 0 \cdot 
-                x^{13} + 0 \cdot x^{12} +0 \cdot x^{11} \\
-                + 0 \cdot x^{10} + 0 \cdot x^{9} + 0 \cdot x^{8} + 0 \cdot x^{7}
-                + 0 \cdot x^{6} + 0 \cdot x^{5} + 0 \cdot x^{4} + 0 \cdot x^{3} 
-                + 0 \cdot x^{2} + 0 \cdot x^{1} +  0 \cdot x^{0} $$
-                $$ m(x) = x^{22} + x^{19} + x^{18} + x^{17} + x^{16} + x^{14} +
-                x^{13} + x^{11} + x^{9} + x^{5} + x^{0}$$
+                \begin{equation}
+                    \begin{split}
+                        m(x) = 0 \cdot x^{23} + 1 \cdot x^{22} + 0 \cdot x^{21}
+                        + 0 \cdot x^{20} & + 1 \cdot x^{19} + 1 \cdot x^{18} +
+                        1 \cdot x^{17} + 1 \cdot x^{16} + 0 \cdot x^{15}\\ +
+                        1 \cdot x^{14} + 1 \cdot x^{13} + 0 \cdot x^{12} +
+                        1 \cdot x^{11} & + 0  \cdot x^{10} + 1 \cdot x^{9} +
+                        0 \cdot x^{8} + 0 \cdot x^{7} + 0 \cdot x^{6} \\ +
+                        1 \cdot x^{5} + 0 \cdot x^{4} + 0 \cdot x^{3} & +
+                        0 \cdot x^{2} + 0 \cdot x^{1} + 1 \cdot x^{0}\\
+                    \end{split}
+                \end{equation}
+                oziroma, če malo uredimo
+                \begin{equation}
+                    \begin{split}
+                        m(x) = x^{22} + x^{19} + x^{18} + x^{17} + x^{16} +
+                        x^{14} + x^{13} + x^{11} + x^{9} + x^{5} + x^{0}
+                    \end{split}
+                \end{equation}
+            \paragraph{Osnovni izrek o deljenju (za polinome)}
+                Osnovni izrek o deljenju naravnih števil lahko zapišemo kot:
+                \begin{equation}
+                    a = k \cdot b + r; a,b,k,r \in \mathbb{N}
+                \end{equation}
+                Rečemo lahko tudi, da $b$ deli $a$ natanko tedaj, ko je $r=0$.
+                Tudi pri deljenju polinomov lahko zapišemo podobno:
+                \begin{equation}
+                    p(x) = k(x) \cdot q(x) + r(x)
+                \end{equation}
+                Polinom $p(x)$ je deljiv s polinomom $q(x)$ samo če je $r(x)=0$.
+        \subsubsection{Cyclic redundancy check}
+            Za uporabo CRC algoritma moramo najprej določiti generatorski 
+            polinom $g(x)$. Za primer vzemimo: $g(x)=x^{16}+x^{12}+x^5+1$.
+            Poskusimo naše sporočilo $m(x)$ deliti z $g(x)$, pri tem pa 
+            upoštevajmo definicije iz \ref{sec:polja}.
+            Ker želimo sporočilo na koncu tudi poslati, ga seveda ne želimo 
+            uničiti. To zagotovimo tako, da na koncu sporočila dodamo toliko
+            bitov, kolikor bitni CRC uporabljamo. Za primer uporabljamo 16-bitni
+            CRC saj je stopnja generatorskega polinoma 16 ($st(g)=16$). 
+            Matematično gledano to pomeni, da naše sporočilo pomnožimo z 
+            $x^{16}$ 
+            \begin{equation}
+                \begin{split}
+                    m(x)/g(x) =\\
+                    (x^{38} + x^{35} + x^{34} + x^{33} + x^{32} +
+                    x^{30} + x^{29} + x^{27} + x^{25} + x^{21} + x^{16})\\
+                    /(x^{16} +x^{12} + x^5 + 1)=\\
+                    x^{22} + x^{19} + x^{17} + x^{16} + x^{15} +
+                    x^{14} + x^{12} + x^{11} + x^{10} + x^{9} + x^{7} + 
+                    x^{6} + x^{5} + x^{4} + x^{3}\\ + x^{2} + x^{1}\\
+                    , ost.: x^{15} + x^{14} + x^{13} + x^8 + x^5 + x^4 + x^3 + 
+                    x^2 + x^1 \quad (=r(x))
+                \end{split}
+            \end{equation}
+
+            \newpage
+            Ugotovili smo, da $m(x)$ ni deljiv z $g(x)$. Lahko bi rekli, da je 
+            naše sporočilo za ostanek ($r(x)$) preveliko, da bi bilo deljivo. 
+            Od našega sporočila lahko torej odštejemo ostanek.
+            \begin{equation}
+                \begin{split}
+                    s(x) = & m(x) + r(x)\\
+                    = & (x^{38} + x^{35} + x^{34} + x^{33} + x^{32} +
+                    x^{30} + x^{29} + x^{27} + x^{25} + x^{21} + x^{16})\\
+                    + & (x^{15} + x^{14} + x^{13} + x^8 + x^5 + x^4 + x^3 + 
+                    x^2 + x^1)                    
+                \end{split}
+            \end{equation}
+
+            S tem smo zagotovili, da je sporočilo, ki ga bomo oddali $s(x)$ 
+            deljivo z $g(x)$
+
 
 
 
