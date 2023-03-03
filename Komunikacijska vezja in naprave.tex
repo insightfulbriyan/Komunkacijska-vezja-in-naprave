@@ -111,8 +111,8 @@
         voznikom (in potnikom) krajša čas, ki so ga prisiljeni preživeti za
         volanom. Veliko ljudi pa se ne zaveda, da je radio mnogo več. Slovar
         slovenskega knjižnega jezika s prvim pomenom definira radio
-        kot \textit{naprava za oddajanje in sprejemanje električnih 
-        impulzov, signalov po radijskih valovih}. \cite{SSKJ-radio}\\
+        kot: "\textit{naprava za oddajanje in sprejemanje električnih 
+        impulzov, signalov po radijskih valovih}". \cite{SSKJ-radio}\\
         Leta 1895 \cite{ppt} je potekal prvi prenos sporočila z uporabo
         radijskih valov, osem let kasneje pa prva uspešna (enosmerna) 
         komunikacija iz ZDA v Združeno kraljestvo. Leta 1920 sta v ZDA in 
@@ -123,7 +123,7 @@
     \subsection{Analogni signali}
         Analogni signali so tisti signali, ki lahko zavzamejo vse vrednosti
         na določenem intervalu. Čas je primer analogne vrednosti, ker mu ne
-        moremo odločiti najmanjše enote, za katero bi se spremenil. Urni
+        moremo dolčiti najmanjše enote, za katero bi se spremenil. Urni
         kazalec se premika s stalno hitrostjo. To pomeni, da se v neskončno
         majhnem intervalu časa vseeno spremeni za nek delež stopinje, vendar
         pa ljudje tega navadno ne opazimo.\\
@@ -136,8 +136,8 @@
         naslednje ure smo, na digitalni pa tega žal ne bomo mogli doseči.
     \subsection{Prednosti in slabosti analognih komunikacij}
         Analogni signali so močno nagnjeni k popačenju. Vsi signali so sicer 
-        dovzetni za motnje vendar lahko digitalne signale rekonstruiramo v 
-        prvotno obliko medtem ko tega pri analognih žal ne moremo. Glavna 
+        dovzetni za motnje, vendar lahko digitalne signale rekonstruiramo v 
+        prvotno obliko, medtem ko tega pri analognih žal ne moremo. Glavna 
         prednost analognih signalov pa je večja gostota podatkov v primerjavi z
         digitalnimi signali.
 
@@ -145,8 +145,8 @@
 \section{Digitalna komunikacija}
     \subsection{Prednosti in slabosti digitalne komunikacije}
         Ker lahko digitalni signali zavzamejo le vnaprej določeno število 
-        pozicij, so manj dovzetni z motnje, saj lahko predpostavimo, da je prava
-        tista vrednost, ki je najbližja prebrani. Ravno zaradi tega pa se 
+        pozicij, so manj dovzetni za motnje, saj lahko predpostavimo, da je 
+        prava tista vrednost, ki je najbližja prebrani. Ravno zaradi tega pa se 
         zmanjša količina informacij, ki jih lahko prenesemo s signalom dane 
         frekvence.
     \subsection{Problemi digitalnih komunikacij}
@@ -160,26 +160,15 @@
             primer inducirane napetosti zaradi bližine drugega vodnika, ki 
             prenaša signal ali kozmičnega sevanja \cite{veritasium_computers}.
     \subsection{Pretvorba sporočila} 
-        Ko so se pričele digitalne komunikacije je bilo potrebno ustvariti
-        standard za prenos sporočil. En izmed takih standardov je tudi ASCII
-        (American Standard Code for Information Interchange). Sedaj pa se
+        Ko so se pričele digitalne komunikacije, je bilo potrebno ustvariti
+        standard za prenos sporočil. Enden izmed takih standardov je tudi ASCII
+        (American Standard Code for Information Interchange). Danes pa se
         večinoma uporablja sistem UTF-8, ki je bolj vsestranski, saj podpira
-        skoraj 300 000 alfanumeričnih, nadzornih ipd. znakov 
-        (Slika \ref{fig:tabelaZnakov}).
-        \begin{figure}[h!]
-            \begin{center}
-                \includegraphics[width=11cm, keepaspectratio]
-                {slike/Ascii_table-572996368.png}
-                \caption{ASCII znaki}
-                \caption*{\footnotesize Vir: \url{https://computersciencewiki.
-                org/index.php/File:Ascii_table.png}}
-                \label{fig:tabelaZnakov}
-            \end{center}
-        \end{figure}
+        skoraj 300 000 alfanumeričnih, nadzornih ipd. znakov.
     \subsection{Error correction}
         Odpravljanje napak (ang.: error correction) je skupek načeloma 
-        matematičnih algoritmov s katerimi lažje opazimo in popravimo napake pri
-        prenosu sporočila.
+        matematičnih algoritmov, s katerimi lažje opazimo in popravimo napake 
+        pri prenosu sporočila.
         Eden izmed prvih načinov prepoznave in odprave napak je Hammingov kod. 
         Sporočilo je potrebno razdeliti na dele velikosti $2^n - n - 1$,
         kjer večji $n$ poveča učinkovitost, saj se zmanjša delež paritetnih
@@ -187,11 +176,11 @@
         do nepopravljive napake.
         \subsubsection{Matematični uvod}
             Cyclic redundancy check ali CRC je bolj napredna metoda. Da bi jo 
-            lažje razložil je najprej potrebno vpeljati nekaj matematičnih 
+            lažje razložil, je najprej potrebno vpeljati nekaj matematičnih 
             pojmov.
-            \paragraph{Končna polja} \label{sec:polja}
-                V algebri je polje ali univerzalna množica, množica vseh števil
-                s katerimi operiramo. Navadno so to realna števila morda tudi
+            \paragraph{Končna polja} \label{sec:polja} \mbox{}\\
+                V algebri je polje ali univerzalna množica množica vseh števil,
+                s katerimi operiramo. Navadno so to realna števila, pogosto tudi
                 kompleksna. Moč obeh teh množic je neskončno, kaj pa, če bi
                 uporabili končno množico. Definirajmo univerzalno množico tako 
                 da vsebuje le dva elementa $U = \set{0, 1}$.\\
@@ -217,13 +206,13 @@
                     \end{tabular}
                 \end{table}
 
-                Lahko se je prepričati, da sta tako seštevan kot množenje
+                Lahko se je prepričati, da sta tako seštevanje kot množenje
                 asociativna in komutativna. Prav tako veljata identiteti (0 je 
                 nevtralni element za seštevanje, 1 za množenje). Še vedno velja 
                 zakon o združevanju, prav tako pa lahko določimo nasprotne in 
                 obratne vrednosti. 
             
-            \paragraph{Polinomi}
+            \paragraph{Polinomi} \mbox{}\\
                 Polinom je linearna kombinacija potenčnih funkcij, ki imajo 
                 nenegativne cele eksponente.
                 \begin{equation}
@@ -232,13 +221,12 @@
                 Med polinomi lahko izvajamo matematične operacije. Za izračun
                 CRC bomo potrebovali seštevanje in deljenje. 
             
-            \newpage
-            \paragraph{Kodiranje sporočila kot polinom}
-                Začnimo s primerom.\footnote{Za vse nadaljne odstavke bom 
+            \paragraph{Kodiranje sporočila kot polinom} \mbox{}\\
+                Začnimo s primerom.\footnote{Za vse nadaljnje odstavke bom 
                 uporabil isti primer, ki ga bom ozačil z $m(x)$} 
                 Predpostavimo, da želimo poslati sporočilo: "Oj!". Najprej ga je
-                potrebno pretvoriti v binarni zapis kar lahko storimo s tabelo 
-                na sliki \ref{fig:tabelaZnakov}.\\
+                potrebno pretvoriti v binarni zapis, kar lahko storimo z ASCII
+                tabelo.\\
                 Naše sporočilo sedaj zgleda:
 
                 \begin{table}[h!]
@@ -255,12 +243,12 @@
                     \begin{split}
                         m(x) = 0 \cdot x^{23} + 1 \cdot x^{22} + 0 \cdot x^{21}
                         + 0 \cdot x^{20} & + 1 \cdot x^{19} + 1 \cdot x^{18} +
-                        1 \cdot x^{17} + 1 \cdot x^{16} + 0 \cdot x^{15}\\ +
-                        1 \cdot x^{14} + 1 \cdot x^{13} + 0 \cdot x^{12} +
-                        1 \cdot x^{11} & + 0  \cdot x^{10} + 1 \cdot x^{9} +
-                        0 \cdot x^{8} + 0 \cdot x^{7} + 0 \cdot x^{6} \\ +
-                        1 \cdot x^{5} + 0 \cdot x^{4} + 0 \cdot x^{3} & +
-                        0 \cdot x^{2} + 0 \cdot x^{1} + 1 \cdot x^{0}\\
+                        + 1 \cdot x^{17} + 1 \cdot x^{16} + 0 \cdot x^{15}\\
+                        + \: 1 \cdot x^{14} + 1 \cdot x^{13} + 0 \cdot x^{12}
+                        + 1 \cdot x^{11} & + 0  \cdot x^{10} + 1 \cdot x^{9}
+                        + 0 \cdot x^{8} + 0 \cdot x^{7} + 0 \cdot x^{6} \\
+                        + \:1 \cdot x^{5} + 0 \cdot x^{4} + 0 \cdot x^{3} &
+                        + 0 \cdot x^{2} + 0 \cdot x^{1} + 1 \cdot x^{0}\\
                     \end{split}
                 \end{equation}
                 oziroma, če malo uredimo
@@ -270,7 +258,7 @@
                         x^{14} + x^{13} + x^{11} + x^{9} + x^{5} + x^{0}
                     \end{split}
                 \end{equation}
-            \paragraph{Osnovni izrek o deljenju (za polinome)}
+            \paragraph{Osnovni izrek o deljenju (za polinome)} \mbox{}\\
                 Osnovni izrek o deljenju naravnih števil lahko zapišemo kot:
                 \begin{equation}
                     a = k \cdot b + r; a,b,k,r \in \mathbb{N}
@@ -280,9 +268,9 @@
                 \begin{equation}
                     p(x) = k(x) \cdot q(x) + r(x)
                 \end{equation}
-                Polinom $p(x)$ je deljiv s polinomom $q(x)$ samo če je $r(x)=0$.
+                Polinom $p(x)$ je deljiv s polinomom $q(x)$ samo, če je $r(x)=0$.
         \subsubsection{Cyclic redundancy check}
-            \paragraph{Generianje CRC}
+            \paragraph{Generianje CRC} \mbox{}\\
             Za uporabo CRC algoritma moramo najprej določiti generatorski 
             polinom $g(x)$. Za primer vzemimo: $g(x)=x^{16}+x^{12}+x^5+1$.
             Poskusimo naše sporočilo $m(x)$ deliti z $g(x)$, pri tem pa 
@@ -290,12 +278,12 @@
             Ker želimo sporočilo na koncu tudi poslati, ga seveda ne želimo 
             uničiti. To zagotovimo tako, da na koncu sporočila dodamo toliko
             bitov, kolikor bitni CRC uporabljamo. Za primer uporabljamo 16-bitni
-            CRC saj je stopnja generatorskega polinoma 16 ($st(g)=16$). 
+            CRC, saj je stopnja generatorskega polinoma 16 ($st(g)=16$). 
             Matematično gledano to pomeni, da naše sporočilo pomnožimo z 
             $x^{16}$ 
             \begin{equation}
                 \begin{split}
-                    m(x)/g(x) =\\
+                    (m(x) \cdot x^{16})/g(x) =\\
                     (x^{38} + x^{35} + x^{34} + x^{33} + x^{32} +
                     x^{30} + x^{29} + x^{27} + x^{25} + x^{21} + x^{16})\\
                     /(x^{16} +x^{12} + x^5 + 1)=\\
@@ -307,18 +295,17 @@
                 \end{split}
             \end{equation}
 
-            \newpage
             Ugotovili smo, da $m(x)$ ni deljiv z $g(x)$. Lahko bi rekli, da je 
             naše sporočilo za ostanek ($r(x)$) preveliko, da bi bilo deljivo. 
             Od našega sporočila lahko torej odštejemo ostanek.\footnote{Zaradi 
             uporabe končnega polja sta seštevanje in oštevanje zamenljivi 
-            operaciji in zgleda kot da sta se polinoma seštela}
+            operaciji in izgleda, kot da sta se polinoma seštela}
             \begin{equation}
                 \begin{split}
                     s(x) = & m(x) - r(x)\\
                     = & (x^{38} + x^{35} + x^{34} + x^{33} + x^{32} +
                     x^{30} + x^{29} + x^{27} + x^{25} + x^{21} + x^{16})\\
-                    + & (x^{15} + x^{14} + x^{13} + x^8 + x^5 + x^4 + x^3 + 
+                    + & \: (x^{15} + x^{14} + x^{13} + x^8 + x^5 + x^4 + x^3 + 
                     x^2 + x^1)                    
                 \end{split}
             \end{equation}
@@ -328,14 +315,12 @@
             nazaj v bite, naše sporočilo pa se glasi\\ 
             10011110110101000100001110000100111110}
             
-            \paragraph{Validacija CRC}
+            \paragraph{Validacija CRC} \mbox{}\\
             Ko prejmemo sporočilo, ki je bilo zavarovano s CRC lahko prejeto 
             sporočilo spet delimo z generatorskim polinomom, ostanek pri 
-            deljenju pa mora biti sedaj 0. Če temu ni tako smo lahko prepričani,
-            da smo sporočilo prejeli narobe. Žal ne moremo ugotoviti kje se je 
-            napaka zgodila
-
-
+            deljenju pa mora biti sedaj 0. Če ni tako, smo lahko prepričani,
+            da se je pri prejemu sporočila zgodila napaka. Žal ne moremo 
+            ugotoviti, kje se je napaka zgodila.
 
 \newpage
 \section{Empirični del – Digitalna vezja}
@@ -429,12 +414,30 @@
     \end{figure}
 
 \newpage
+\section{Zaključek}
+
+\newpage
 
 \begingroup
 \makeatletter
         \section{Viri in literatura}
         \nocite{*}
         \printbibliography[heading=none]
-    \makeatother
-    \endgroup
+\makeatother
+\endgroup
+\newpage
+
+\begin{samepage}
+    \thispagestyle{empty}
+    \section*{Izjava o avtorstvu}
+    Izjavljam, da je seminarska naloga v celoti moje avtorsko delo, ki sem ga 
+    izdelal samostojno s pomoĉjo navedene literature in pod vodstvom mentorja.
+
+    \vfill
+    
+    7. 3. 2023 \hfill Jaka Kovač
+    
+    \vspace{3 cm}
+\end{samepage}
+
 \end{document}
