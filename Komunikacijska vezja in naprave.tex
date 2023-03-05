@@ -9,7 +9,7 @@
     pdfusetitle, 
     hidelinks, 
     unicode]{hyperref}  % Nastavi atribute PDF-ja, ne označuj povezav
-\usepackage{microtype}              % Podzavestne izboljšave za tipografijsko perfekcijo :)
+\usepackage{microtype}              % Izboljšave za tipografijsko perfekcijo :)
 \usepackage{enumitem}               % Seznami za člene
 \usepackage{graphicx}               % Vključitev slik
 \usepackage{dirtytalk}              % Citat
@@ -26,7 +26,7 @@
 \usepackage{amsmath} % matematika ki izgleda lepo
 \usepackage{amsfonts} % množice
 \usepackage[style=ieee, maxbibnames=3, minbibnames=1, 
-    maxcitenames=1, mincitenames=1, sorting=nyt]{biblatex}                      % Navajanje virov
+    maxcitenames=1, mincitenames=1, sorting=nyt]{biblatex}   % Navajanje virov
 \bibliography{viri}
 
 \urlstyle{rm}
@@ -86,8 +86,24 @@
 
 %If I had more time I would have written a shorter letter - Mark Twain
 \section*{Povzetek}
-\section*{Abstract}
+Seminarska naloga opisuje matematični vidik delovanja cyclic redundancy check-a,
+ob tem pa na kratko opiše tudi matematične pojme kot so konča polja in polinomi.
+Pokaže tudi, kako CRC implementirati z logičnim vezjem.\\
+\\
+\textbf{Ključe besede:} CRC, končna polja, polinomi, logična vezja, digitalna
+komunikacija\\
 
+\vfill
+\section*{Abstract}
+\foreignlanguage{english}{This paper describes mathematical part of cyclic 
+redundancy check, while at the same time depicts mathematical terms like finite
+fields and polynomials. The paper shows how to implement CRC with logic circuit.
+\\
+\\
+\textbf{Keywords:} CRC, finite fields, polynomials, logic circuits, digital 
+communication}
+
+\vfill
 % KAZALO 
 \newpage
 \thispagestyle{empty}
@@ -104,7 +120,14 @@
 
 \newpage
 \section{Uvod}
-\newpage
+Dandanes se vsak zanaša na digitalno komunikacijo. Pa naj bo pogovor z ljubljeno
+osebo, kratkočasenje z uporabo interneta ali pa plačevanje z bančno kartico. 
+Potrebno je zagotoviti pravilni prejem sporočila. Motnje so lahko zelo različne.
+Kot ponavadi si lahko pomagamo z matematiko, saj je bilo iznajdenih že kar nekaj
+matematičnih algoritmov kot so Hammingov kod in cyclic redundancy check. 
+Matematična kompleksnost prej omenjenega algoritma in preprostost
+implementacije z diskretnimi logičnimi enotami sta čudovito nasprotujoča. CRC se
+uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
 \section{Analogna komunikacija}
     \subsection{Zgodovina radia}
         Prav vsi poznamo radio. To je tista majhna naprava v avtu, ki 
@@ -123,7 +146,7 @@
     \subsection{Analogni signali}
         Analogni signali so tisti signali, ki lahko zavzamejo vse vrednosti
         na določenem intervalu. Čas je primer analogne vrednosti, ker mu ne
-        moremo dolčiti najmanjše enote, za katero bi se spremenil. Urni
+        moremo dolčiti najmanjše enote, za katero bi se spremenil. Urin
         kazalec se premika s stalno hitrostjo. To pomeni, da se v neskončno
         majhnem intervalu časa vseeno spremeni za nek delež stopinje, vendar
         pa ljudje tega navadno ne opazimo.\\
@@ -181,8 +204,8 @@
             \paragraph{Končna polja} \label{sec:polja} \mbox{}\\
                 V algebri je polje ali univerzalna množica množica vseh števil,
                 s katerimi operiramo. Navadno so to realna števila, pogosto tudi
-                kompleksna. Moč obeh teh množic je neskončno, kaj pa, če bi
-                uporabili končno množico. \\
+                kompleksna. Moč obeh teh množic je neskončno. Poglejmo si primer
+                končno univerzalne množico. \\
                 Definirajmo univerzalno množico tako 
                 da vsebuje le dva elementa $U = \set{0, 1}$.\\
                 Poskusimo definirati seštevanje in odštevanje:
@@ -228,7 +251,7 @@
                 Predpostavimo, da želimo poslati sporočilo: "Oj!". Najprej ga je
                 potrebno pretvoriti v binarni zapis, kar lahko storimo z ASCII
                 tabelo.\\
-                Naše sporočilo sedaj zgleda:
+                Naše sporočilo sedaj izgleda:
 
                 \begin{table}[h!]
                     \centering
@@ -269,9 +292,10 @@
                 \begin{equation}
                     p(x) = k(x) \cdot q(x) + r(x)
                 \end{equation}
-                Polinom $p(x)$ je deljiv s polinomom $q(x)$ samo, če je $r(x)=0$.
+                Polinom $p(x)$ je deljiv s polinomom $q(x)$ samo, če je 
+                $r(x)=0$.
         \subsubsection{Cyclic redundancy check}
-            \paragraph{Generianje CRC} \mbox{}\\
+            \paragraph{Generiranje CRC} \mbox{}\\
             Za uporabo CRC algoritma moramo najprej določiti generatorski 
             polinom $g(x)$. Za primer vzemimo: $g(x)=x^{16}+x^{12}+x^5+1$.
             Poskusimo naše sporočilo $m(x)$ deliti z $g(x)$, pri tem pa 
@@ -312,8 +336,8 @@
             \end{equation}
 
             S tem smo zagotovili, da je sporočilo, ki ga bomo oddali $s(x)$ 
-            deljivo z $g(x)$.\footnote{Za oddajo sporočila polinom seveda pretvorimo 
-            nazaj v bite, naše sporočilo pa se glasi\\ 
+            deljivo z $g(x)$.\footnote{Za oddajo sporočila polinom seveda 
+            pretvorimo nazaj v bite, naše sporočilo pa se glasi\\ 
             10011110110101000100001110000100111110}
             
             \paragraph{Validacija CRC} \mbox{}\\
@@ -324,7 +348,42 @@
             ugotoviti, kje se je napaka zgodila.
 
 \newpage
-\section{Empirični del – Digitalna vezja}
+\section{Empirični del – Digitalno vezje}
+    \subsection{Delovnje vezja}
+        Najprej potrebujemo naš tok bitov shraniti. To storimo z D polnilnimi
+        celicami. Izhod prve vežemo na vhod druge. Signal tako potuje od prve 
+        proti zadnji. Število $a$ lahko delimo s številom $b$ samo če je število
+        $a$ večje od $b$. To pomeni, da moramo obrniti bite na pravih mestih
+        samo, če je izhod zadnje pomnilne celice 1. Logična vrata, ki nam to 
+        omogočajo so vrata XALI. Pravilnostna tabela XALI vrat:
+        \begin{table}[!h]
+            \centering
+            \begin{tabular}{c|c||c}
+                A & B & A $\bigoplus$ B\\
+                \cline{1-3}
+                0 & 0 & 0\\
+                0 & 1 & 1\\
+                1 & 0 & 1\\
+                1 & 1 & 0\\
+            \end{tabular}
+        \end{table}
+        Iz pravilnostne tabele lahko vidimo, da je izhod vrat enak vhodu B, če 
+        je vhod A enak 0 in da je izhod negirana vrednost vhoda B, če je vhod A 
+        enak 1. V vhod A priključimo izhodni bit zadnje pomnilne celice in v 
+        vhod B izhod pomnilne celice, ki ga želimo nadzirati. Ker je deljenje v
+        izbranem končnem polju enako negiranju bitov so XALI vrata prava izbira.
+        Postavimo jih pred bite, ki jih želimo obrniti. Zadnjega ne potrebujemo,
+        obračati, saj gre z naslednjim ciklom časovnika v pozabo. 
+        Ker želimo na koncu ostanek prebrati, pred A vhode XALI vrat postavimo
+        IN vrata, ki nastavijo izhod na 1 samo če sta oba vhoda tudi 1. Če je 
+        torej eden izmed vhodov vedno 1, bo vrednost izhoda enaka drugemu vhodu,
+        če pa bo vrednost enega izmed vhodov enaka 0 je izhod tudi 0 neodvisno 
+        od drugega vhoda. Če torej v en vhod IN vrat pripeljemo signal s katerim
+        povemo, da želimo samo brati ostanek, lahko s signalom READ preskočimo
+        negiranje bitov v ostanku. 
+
+    \newpage
+    \subsection{Shema vezja}
     \begin{figure}[h!]
         \begin{center}
             \begin{circuitikz} \draw
@@ -416,6 +475,10 @@
 
 \newpage
 \section{Zaključek}
+S seminarsko nalogo sem vam želel podrobno opisati delovanje CRC. Za to je
+potrebno razložiti tudi nekaj matematike. Žal mi je zmanjkalo časa za poglobitev
+v delovanje logičnega vezja, sem pa uspešno izdelal oddajnik in sprejemnik
+sporočila zaščitenega s CRC.
 
 \newpage
 
