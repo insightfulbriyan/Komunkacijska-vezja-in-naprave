@@ -86,7 +86,7 @@
 %If I had more time I would have written a shorter letter - Mark Twain
 \section*{Povzetek}
 Seminarska naloga opisuje matematični vidik delovanja cyclic redundancy check-a,
-ob tem pa na kratko opiše tudi matematične pojme kot so konča polja in polinomi.
+ob tem pa na kratko opiše tudi matematične pojme, kot so konča polja in polinomi.
 Pokaže tudi, kako CRC implementirati z logičnim vezjem.\\
 \\
 \textbf{Ključe besede:} CRC, končna polja, polinomi, logična vezja, digitalna
@@ -145,7 +145,7 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
     \subsection{Analogni signali}
         Analogni signali so tisti signali, ki lahko zavzamejo vse vrednosti
         na določenem intervalu. Čas je primer analogne vrednosti, ker mu ne
-        moremo dolčiti najmanjše enote, za katero bi se spremenil. Urin
+        moremo določiti najmanjše enote, za katero bi se spremenil. Urin
         kazalec se premika s stalno hitrostjo. To pomeni, da se v neskončno
         majhnem intervalu časa vseeno spremeni za nek delež stopinje, vendar
         pa ljudje tega navadno ne opazimo.\\
@@ -180,7 +180,8 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
             (logično stanje: pravilno). Bitflip je dogodek, ko se nič spremeni v
             ena ali ena v nič. To se lahko zgodi zaradi zunanjih vplivov, na 
             primer inducirane napetosti zaradi bližine drugega vodnika, ki 
-            prenaša signal ali kozmičnega sevanja \cite{veritasium_computers}.
+            prenaša signal ali zaradi kozmičnega sevanja 
+            \cite{veritasium_computers}.
     \subsection{Pretvorba sporočila} 
         Ko so se pričele digitalne komunikacije, je bilo potrebno ustvariti
         standard za prenos sporočil. Enden izmed takih standardov je tudi ASCII
@@ -204,8 +205,8 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
                 V algebri je polje ali univerzalna množica množica vseh števil,
                 s katerimi operiramo. Navadno so to realna števila, pogosto tudi
                 kompleksna. Moč obeh teh množic je neskončno. Poglejmo si primer
-                končno univerzalne množico. \\
-                Definirajmo univerzalno množico tako 
+                končne univerzalne množico. \\
+                Definirajmo univerzalno množico, tako 
                 da vsebuje le dva elementa $U = \set{0, 1}$.\\
                 Poskusimo definirati seštevanje in odštevanje:
                 \begin{table}[h!]
@@ -322,7 +323,7 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
             Ugotovili smo, da $m(x)$ ni deljiv z $g(x)$. Lahko bi rekli, da je 
             naše sporočilo za ostanek ($r(x)$) preveliko, da bi bilo deljivo. 
             Od našega sporočila lahko torej odštejemo ostanek.\footnote{Zaradi 
-            uporabe končnega polja sta seštevanje in oštevanje zamenljivi 
+            uporabe končnega polja sta seštevanje in odštevanje zamenljivi 
             operaciji in izgleda, kot da sta se polinoma seštela}
             \begin{equation}
                 \begin{split}
@@ -340,7 +341,7 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
             10011110110101000100001110000100111110}
             
             \paragraph{Validacija CRC} \mbox{}\\
-            Ko prejmemo sporočilo, ki je bilo zavarovano s CRC lahko prejeto 
+            Ko prejmemo sporočilo, ki je bilo zavarovano s CRC, lahko prejeto 
             sporočilo spet delimo z generatorskim polinomom, ostanek pri 
             deljenju pa mora biti sedaj 0. Če ni tako, smo lahko prepričani,
             da se je pri prejemu sporočila zgodila napaka. Žal ne moremo 
@@ -348,13 +349,13 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
 
 \newpage
 \section{Empirični del – Digitalno vezje}
-    \subsection{Delovnje vezja}
-        Najprej potrebujemo naš tok bitov shraniti. To storimo z D polnilnimi
+    \subsection{Delovanje vezja}
+        Najprej je potrebno naš tok bitov shraniti. To storimo z D pomnilnimi
         celicami. Izhod prve vežemo na vhod druge. Signal tako potuje od prve 
-        proti zadnji. Število $a$ lahko delimo s številom $b$ samo če je število
+        proti zadnji. Število $a$ lahko delimo s številom $b$ samo, če je število
         $a$ večje od $b$. To pomeni, da moramo obrniti bite na pravih mestih
         samo, če je izhod zadnje pomnilne celice 1. Logična vrata, ki nam to 
-        omogočajo so vrata XALI. Pravilnostna tabela XALI vrat:
+        omogočajo, so vrata XALI. Pravilnostna tabela XALI vrat:
         \begin{table}[!h]
             \centering
             \begin{tabular}{c|c||c}
@@ -366,17 +367,18 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
                 1 & 1 & 0\\
             \end{tabular}
         \end{table}
+
         Iz pravilnostne tabele lahko vidimo, da je izhod vrat enak vhodu B, če 
         je vhod A enak 0 in da je izhod negirana vrednost vhoda B, če je vhod A 
         enak 1. V vhod A priključimo izhodni bit zadnje pomnilne celice in v 
         vhod B izhod pomnilne celice, ki ga želimo nadzirati. Ker je deljenje v
-        izbranem končnem polju enako negiranju bitov so XALI vrata prava izbira.
-        Postavimo jih pred bite, ki jih želimo obrniti. Zadnjega ne potrebujemo,
+        izbranem končnem polju enako negiranju bitov, so XALI vrata prava izbira.
+        Postavimo jih pred bite, ki jih želimo obrniti. Zadnjega ni potrebno
         obračati, saj gre z naslednjim ciklom časovnika v pozabo. 
         Ker želimo na koncu ostanek prebrati, pred A vhode XALI vrat postavimo
         IN vrata, ki nastavijo izhod na 1 samo če sta oba vhoda tudi 1. Če je 
         torej eden izmed vhodov vedno 1, bo vrednost izhoda enaka drugemu vhodu,
-        če pa bo vrednost enega izmed vhodov enaka 0 je izhod tudi 0 neodvisno 
+        če pa bo vrednost enega izmed vhodov enaka 0, je izhod tudi 0 neodvisno 
         od drugega vhoda. Če torej v en vhod IN vrat pripeljemo signal s katerim
         povemo, da želimo samo brati ostanek, lahko s signalom READ preskočimo
         negiranje bitov v ostanku. 
@@ -494,7 +496,7 @@ sporočila zaščitenega s CRC.
     \thispagestyle{empty}
     \section*{Izjava o avtorstvu}
     Izjavljam, da je seminarska naloga v celoti moje avtorsko delo, ki sem ga 
-    izdelal samostojno s pomoĉjo navedene literature in pod vodstvom mentorja.
+    izdelal samostojno s pomočjo navedene literature in pod vodstvom mentorja.
 
     \vfill
     
