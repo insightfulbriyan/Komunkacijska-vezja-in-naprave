@@ -13,6 +13,8 @@
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
 
+		<script src="plugin/math/math.js"></script>
+
 		<style>
 			.grid-container {
 				display: grid;
@@ -42,20 +44,6 @@
 				</section>
 				<section>
 					<section>
-						<h2>Anaog communication</h2>
-					</section>
-					<section>
-						<h3>History of (amatuer) radio</h3>
-					</section>
-					<section>
-						<h3>Analog signals</h3>
-					</section>
-					<section>
-						<h3>Pros and cons of <br> analog communication</h3>
-					</section>
-				</section>
-				<section>
-					<section>
 						<h2>Digital communication</h2>
 					</section>
 					<section>
@@ -72,9 +60,53 @@
 					<section>
 						<h2>Mathemathical precourse</h2>
 					</section>
-					<section>
+					<section data-auto-animate>
 						<h3>Finite fileds</h3>
+						<table>
+						<tbody>
+							<tr>
+								<td>$0 + 0 = 0$</td>
+								<td>$0 - 0 = 0$</td>
+							</tr>
+							<tr>
+								<td>$0 + 1 = 1$</td>
+								<td>$0 - 1 = 1$</td>
+							</tr>
+							<tr>
+								<td>$1 + 0 = 1$</td>
+								<td>$1 - 0 = 1$</td>
+							</tr>
+							<tr>
+								<td>$1 + 1 = 0$</td>
+								<td>$1 - 1 = 0$</td>
+							</tr>
+						</tbody>
+						</table>
 					</section>
+					<section data-auto-animate>
+						<h3>Finite fileds</h3>
+						<table>
+						<tbody>
+							<tr>
+								<td>$0 * 0 = 0$</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>$0 * 1 = 0$</td>
+								<td>$0 / 1 = 0$</td>
+							</tr>
+							<tr>
+								<td>$1 * 0 = 0$</td>
+								<td>$1 / 0 = 1$</td>
+							</tr>
+							<tr>
+								<td>$1 * 1 = 1$</td>
+								<td></td>
+							</tr>
+						</tbody>
+						</table>
+					</section>
+
 					<section>
 						<h3>Polynomials</h3>
 					</section>
@@ -102,10 +134,10 @@
 				<section>
 					<h2>Great resources</h2>
 					<ul>
-						<li><p>Ben Eater: <i>Hardware build: CRC calculation</i></p></li>
-						<li><p>Ben Eater: <i>How do CDCs work?</i></p></li>
-						<li><p>J. Vraničar et. al: <i>Priročnik za radioamaterje</i></p></li>
-						<li><p>S51KJ, S54UNC, S50ZK: <i>Radioamaterski tečaj 2022</i></p></li>
+						<li>Ben Eater: <i style="font-style: italic;">Hardware build: CRC calculation</i></li>
+						<li>Ben Eater: <i style="font-style: italic;">How do CDCs work?</i></li>
+						<li>J. Vraničar et. al: <i style="font-style: italic;">Priročnik za radioamaterje</i></li>
+						<li>S51KJ, S54UNC, S50ZK: <i style="font-style: italic;">Radioamaterski tečaj 2022</i></li>
 					</ul>
 				</section>
 			</div>
@@ -123,7 +155,7 @@
 				hash: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
 			});
 		</script>
 	</body>
