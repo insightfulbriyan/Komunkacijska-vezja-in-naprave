@@ -1,13 +1,14 @@
 \documentclass[12pt]{article}
 
 \usepackage[
-    a4paper, 
-    margin=2.5cm]{geometry}
+    a4paper,
+    margin=2.5cm,
+    numbers=endperiod]{geometry}
 \usepackage[utf8]{inputenc}         % UTF8 enkodiranje
 \usepackage[slovene]{babel}         % Slovenščina
 \usepackage[
-    pdfusetitle, 
-    hidelinks, 
+    pdfusetitle,
+    hidelinks,
     unicode]{hyperref}  % Nastavi atribute PDF-ja, ne označuj povezav
 \usepackage{microtype}              % Izboljšave za tipografijsko perfekcijo :)
 \usepackage{enumitem}               % Seznami za člene
@@ -15,17 +16,17 @@
 \usepackage{dirtytalk}              % Citat
 \usepackage{listings}               % Kodni blok
 \usepackage{fancyvrb}
-\usepackage[font=]{caption}         % Required for specifying captions
+\usepackage[labelformat=empty, font=]{caption}         % Required for specifying captions
 \usepackage[normalem]{ulem}         % Krašanje enot v enačbi
 \usepackage{times}                  % Times New Roman pisava
-\usepackage{tikz} 
+\usepackage{tikz}
 \usepackage[european]{circuitikz}   % Električna vezja
 \usepackage{datetime}               % Datum
 \usepackage{csquotes}
 \usepackage{braket}
 \usepackage{amsmath} % matematika ki izgleda lepo
 \usepackage{amsfonts} % množice
-\usepackage[style=ieee, maxbibnames=3, minbibnames=1, 
+\usepackage[style=ieee, maxbibnames=3, minbibnames=1,
     maxcitenames=1, mincitenames=1, sorting=nyt]{biblatex}   % Navajanje virov
 \bibliography{viri}
 
@@ -37,11 +38,13 @@
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{4}
 
-\renewcommand{\thesection}{\arabic{section}}
-\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\thesubsection}{\thesection\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 \renewcommand{\theparagraph}{\thesubsubsection.\arabic{paragraph}}
 \renewcommand{\thesubparagraph}{\theparagraph.\arabic{subparagraph}}
+
+\renewcommand{\thefigure}{Slika \arabic{figure}:}
 
 \renewcommand{\labelnamepunct}{\addcomma\space}
 \DeclareFieldFormat[article]{title}{#1}
@@ -63,8 +66,10 @@
 \begin{center}
     \thispagestyle{empty}
     \includegraphics[scale=1]{slike/logotip_vegova_leze_brezokvirja.png}
-    
-    \vspace{\fill} 
+    \\
+    \textbf{Vegova ulica 4, 1000 Ljubljana}
+
+    \vspace{\fill}
     Seminarska naloga pri predmetu elektrotehnika
 
     \Huge{\textbf{Komunikacijska vezja in naprave}}
@@ -72,45 +77,50 @@
     \normalsize
     \vspace{\fill}
 
-    Mentor: Anton Orehek, uni. dipl. inž., prof. \hfill Avtor: Jaka Kovač S51JK,
-    G 3. b\\
+    Mentor: Anton Orehek, uni. dipl. inž. \hfill Avtor: Jaka Kovač S51JK,
+    G 3. B\\
     \null
-    Ljubljana, december 2022 – \MMYYYYdate\today
+    Ljubljana, \MMYYYYdate\today
 \end{center}
 \newpage
-\thispagestyle{empty}
-\null
-\newpage
-\thispagestyle{empty}
 
 %If I had more time I would have written a shorter letter - Mark Twain
 \section*{Povzetek}
-Seminarska naloga opisuje matematični vidik delovanja cyclic redundancy check-a,
-ob tem pa na kratko opiše tudi matematične pojme, kot so konča polja in polinomi.
-Pokaže tudi, kako CRC implementirati z logičnim vezjem.\\
+Seminarska naloga opisuje implementacijo in optimizacijo algoritma cyclic redundancy
+check CRC) v komunikacijskih vezjih. Začne z uvodom v teoretične osnove CRC, vključno z
+matematičnimi pojmi kot so končna polja in polinomi ter sposobnostmi odkrivanja napak.
+Vključuje tudi analizo arhitekturnega vidika CRC vezij ter implementacijo z integiranimi
+vezji, ki so optimirizani za dosego optimalnega pretoka. Seminarska naloga na splošno
+ponuja dragocene vpoglede za razvoj robustnih komunikacijskih sistemov z izboljšanim
+odkrivanjem napak s pomočjo CRC.
+\\
 \\
 \textbf{Ključe besede:} CRC, končna polja, polinomi, logična vezja, digitalna
 komunikacija\\
 
 \vfill
 \section*{Abstract}
-\foreignlanguage{english}{This paper describes mathematical part of cyclic 
-redundancy check, while at the same time depicts mathematical terms like finite
-fields and polynomials. The paper shows how to implement CRC with logic circuit.
+\foreignlanguage{english}{The paper describes the implementation and optimization
+of Cyclic Redundancy Check (CRC) in communication circuits. It begins with an
+introduction to the theoretical foundations of CRC, including mathematical concepts
+such as finite fields and polynomials, as well as error detection capabilities. It also
+includes an analysis of the architectural aspects of CRC circuits and implementation
+using integrated circuits optimized for achieving optimal throughput. Overall, the paper
+provides valuable insights for the development of robust communication systems with
+improved error detection using CRC.
 \\
 \\
-\textbf{Keywords:} CRC, finite fields, polynomials, logic circuits, digital 
+\textbf{Keywords:} CRC, finite fields, polynomials, logic circuits, digital
 communication}
 
 \vfill
-% KAZALO 
+% KAZALO
 \newpage
-\thispagestyle{empty}
 \tableofcontents
 
 \begingroup
 \makeatletter
-\section*{Slike}
+\section*{Kazalo slik}
 \@starttoc{lof}
 \let\clearpage\relax
 \makeatother
@@ -120,27 +130,28 @@ communication}
 \newpage
 \section{Uvod}
 Dandanes se vsak zanaša na digitalno komunikacijo. Pa naj bo pogovor z ljubljeno
-osebo, kratkočasenje z uporabo interneta ali pa plačevanje z bančno kartico. 
+osebo, kratkočasenje z uporabo interneta ali pa plačevanje z bančno kartico.
 Potrebno je zagotoviti pravilni prejem sporočila. Motnje so lahko zelo različne.
 Kot ponavadi si lahko pomagamo z matematiko, saj je bilo iznajdenih že kar nekaj
-matematičnih algoritmov kot so Hammingov kod in cyclic redundancy check. 
+matematičnih algoritmov, kot so Hammingov kod in cyclic redundancy check.
 Matematična kompleksnost prej omenjenega algoritma in preprostost
 implementacije z diskretnimi logičnimi enotami sta nasprotujoča. CRC se
 uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
 \section{Analogna komunikacija}
     \subsection{Zgodovina radia}
-        Prav vsi poznamo radio. To je tista majhna naprava v avtu, ki 
+        Prav vsi poznamo radio. To je tista majhna naprava v avtu, ki
         voznikom (in potnikom) krajša čas, ki so ga prisiljeni preživeti za
         volanom. Veliko ljudi pa se ne zaveda, da je radio mnogo več. Slovar
         slovenskega knjižnega jezika s prvim pomenom definira radio
-        kot: "\textit{naprava za oddajanje in sprejemanje električnih 
+        kot: "\textit{naprava za oddajanje in sprejemanje električnih
         impulzov, signalov po radijskih valovih}". \cite{SSKJ-radio}\\
+
         Leta 1895 \cite{ppt} je potekal prvi prenos sporočila z uporabo
-        radijskih valov, osem let kasneje pa prva uspešna (enosmerna) 
-        komunikacija iz ZDA v Združeno kraljestvo. Leta 1920 sta v ZDA in 
+        radijskih valov, osem let kasneje pa prva uspešna (enosmerna)
+        komunikacija iz ZDA v Združeno kraljestvo. Leta 1920 sta v ZDA in
         Veliki Britaniji pričeli delovati prvi radiodifuzni\footnote{
-        radiodifuzija – oddajanje radijskih signalov namenjenih poslušanju} 
-        postaji, leta 1928 pa je Radio Ljubljana postala prva radiodifuzna 
+        radiodifuzija – oddajanje radijskih signalov namenjenih poslušanju}
+        postaji, leta 1928 pa je Radio Ljubljana postala prva radiodifuzna
         postaja v Sloveniji.
     \subsection{Analogni signali}
         Analogni signali so tisti signali, ki lahko zavzamejo vse vrednosti
@@ -149,212 +160,207 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
         kazalec se premika s stalno hitrostjo. To pomeni, da se v neskončno
         majhnem intervalu časa vseeno spremeni za nek delež stopinje, vendar
         pa ljudje tega navadno ne opazimo.\\
-        Digitalni signali pa so tisti signali, ki lahko zavzamejo samo 
-        določene vrednosti. Na primer digitalna ura. "Kazalci" na taki uri 
-        (številke) ne morejo zavzeti katerekoli pozicije med dvema 
+
+        Digitalni signali pa so tisti signali, ki lahko zavzamejo samo
+        določene vrednosti. Na primer digitalna ura. "Kazalci" na taki uri
+        (številke) ne morejo zavzeti katerekoli pozicije med dvema
         številkama, ampak samo celoštevilčne vrednosti med njima.\\
+
         Če imamo torej dve uri, eno analogno in eno digitalno, ki prikazuje
-        samo ure, lahko na analogni uri vseeno razberemo, kako blizu 
+        samo ure, lahko na analogni uri vseeno razberemo, kako blizu
         naslednje ure smo, na digitalni pa tega žal ne bomo mogli doseči.
+    \newpage
     \subsection{Prednosti in slabosti analognih komunikacij}
-        Analogni signali so močno nagnjeni k popačenju. Vsi signali so sicer 
-        dovzetni za motnje, vendar lahko digitalne signale rekonstruiramo v 
-        prvotno obliko, medtem ko tega pri analognih žal ne moremo. Glavna 
+        Analogni signali so močno nagnjeni k popačenju. Vsi signali so sicer
+        dovzetni za motnje, vendar lahko digitalne signale rekonstruiramo v
+        prvotno obliko, medtem ko tega pri analognih žal ne moremo. Glavna
         prednost analognih signalov pa je večja gostota podatkov v primerjavi z
         digitalnimi signali.
 
-\newpage
 \section{Digitalna komunikacija}
     \subsection{Prednosti in slabosti digitalne komunikacije}
-        Ker lahko digitalni signali zavzamejo le vnaprej določeno število 
-        pozicij, so manj dovzetni za motnje, saj lahko predpostavimo, da je 
-        prava tista vrednost, ki je najbližja prebrani. Ravno zaradi tega pa se 
-        zmanjša količina informacij, ki jih lahko prenesemo s signalom dane 
+        Ker lahko digitalni signali zavzamejo le vnaprej določeno število
+        pozicij, so manj dovzetni za motnje, saj lahko predpostavimo, da je
+        prava tista vrednost, ki je najbližja prebrani. Ravno zaradi tega pa se
+        zmanjša količina informacij, ki jih lahko prenesemo s signalom dane
         frekvence.
     \subsection{Problemi digitalnih komunikacij}
         Digitalni signali so načeloma prepoznani kot bolj zanesljivi, vendar pa
         so še vedno dovzetni za različne motnje.
-        \subsubsection{Bitflips}
-            Bit je najmanjša količina informacij, ki jih lahko signal prenese. 
-            Načeloma jih označujemo z nič (logično stanje: nepravilno) in ena 
+        \paragraph*{Bitflips} \mbox{} \\
+            Bit je najmanjša količina informacij, ki jih lahko signal prenese.
+            Načeloma jih označujemo z nič (logično stanje: nepravilno) in ena
             (logično stanje: pravilno). Bitflip je dogodek, ko se nič spremeni v
-            ena ali ena v nič. To se lahko zgodi zaradi zunanjih vplivov, na 
-            primer inducirane napetosti zaradi bližine drugega vodnika, ki 
-            prenaša signal ali zaradi kozmičnega sevanja 
+            ena ali ena v nič. To se lahko zgodi zaradi zunanjih vplivov, na
+            primer inducirane napetosti zaradi bližine drugega vodnika, ki
+            prenaša signal ali zaradi kozmičnega sevanja
             \cite{veritasium_computers}.
-    \subsection{Pretvorba sporočila} 
+    \subsection{Pretvorba sporočila}
         Ko so se pričele digitalne komunikacije, je bilo potrebno ustvariti
         standard za prenos sporočil. Eden izmed takih standardov je tudi ASCII
         (American Standard Code for Information Interchange). Danes pa se
         večinoma uporablja sistem UTF-8, ki je bolj vsestranski, saj podpira
         skoraj 300 000 alfanumeričnih, nadzornih ipd. znakov.
-    \subsection{Error correction}
-        Odpravljanje napak (ang.: error correction) je skupek načeloma 
-        matematičnih algoritmov, s katerimi lažje opazimo in popravimo napake 
+    \subsection{Matematični uvod}
+        Odpravljanje napak (ang.: error correction) je skupek načeloma
+        matematičnih algoritmov, s katerimi lažje opazimo in popravimo napake
         pri prenosu sporočila.
-        Eden izmed prvih načinov prepoznave in odprave napak je Hammingov kod. 
+        Eden izmed prvih načinov prepoznave in odprave napak je Hammingov kod.
         Sporočilo je potrebno razdeliti na dele velikosti $2^n - n - 1$,
         kjer večji $n$ poveča učinkovitost, saj se zmanjša delež paritetnih
         bitov v oddanem sporočilu, hkrati pa se poveča verjetnost, da bo prišlo
-        do nepopravljive napake.
-        \subsubsection{Matematični uvod}
-            Cyclic redundancy check ali CRC je bolj napredna metoda. Da bi jo 
-            lažje razložil, je najprej potrebno vpeljati nekaj matematičnih 
-            pojmov.
-            \paragraph{Končna polja} \label{sec:polja} \mbox{}\\
-                V algebri je polje ali univerzalna množica množica vseh števil,
-                s katerimi operiramo. Navadno so to realna števila, pogosto tudi
-                kompleksna. Moč obeh teh množic je neskončno. Poglejmo si primer
-                končne univerzalne množico. \\
-                Definirajmo univerzalno množico, tako 
-                da vsebuje le dva elementa $U = \set{0, 1}$.\\
-                Poskusimo definirati seštevanje in odštevanje:
-                \begin{table}[h!]
-                    \centering
-                    \begin{tabular}{l p{0.2\linewidth}}
-                        $0 + 0 = 0$  & $0 - 0 = 0$ \\
-                        $0 + 1 = 1$  & $0 - 1 = 1$ \\
-                        $1 + 0 = 1$  & $1 - 0 = 1$ \\
-                        $1 + 1 = 0$  & $1 - 1 = 0$ \\
-                    \end{tabular}
-                \end{table}
+        do nepopravljive napake. \\
 
-                ter množenje in deljenje:
-                \begin{table}[h!]
-                    \centering
-                    \begin{tabular}{l p{0.2\linewidth}}
-                        $0 * 0 = 0$  &  \\
-                        $0 * 1 = 0$  & $0 / 1 = 0$\\
-                        $1 * 0 = 0$  & $1 / 1 = 1$\\
-                        $1 * 1 = 1$  &  \\
-                    \end{tabular}
-                \end{table}
+        Cyclic redundancy check ali CRC je bolj napredna metoda. Da bi jo lažje
+        razložil, je najprej potrebno vpeljati nekaj matematičnih pojmov.
+        \paragraph*{Končna polja} \label{sec:polja} \mbox{}\\
+            V algebri je polje ali univerzalna množica množica vseh števil, s
+            katerimi operiramo. Navadno so to realna števila, pogosto tudi
+            kompleksna. Moč obeh teh množic je neskončno. Poglejmo si primer
+            končne univerzalne množico. \\
+            Definirajmo univerzalno množico, tako da vsebuje le dva elementa
+            $U = \set{0, 1}$.\\
+            Poskusimo definirati seštevanje in odštevanje:
+            \begin{table}[h!]
+                \centering
+                \begin{tabular}{l p{0.2\linewidth}}
+                    $0 + 0 = 0$  & $0 - 0 = 0$ \\
+                    $0 + 1 = 1$  & $0 - 1 = 1$ \\
+                    $1 + 0 = 1$  & $1 - 0 = 1$ \\
+                    $1 + 1 = 0$  & $1 - 1 = 0$ \\
+                \end{tabular}
+            \end{table}
 
-                Lahko se je prepričati, da sta tako seštevanje kot množenje
-                asociativna in komutativna. Prav tako veljata identiteti (0 je 
-                nevtralni element za seštevanje, 1 za množenje). Še vedno velja 
-                zakon o združevanju, prav tako pa lahko določimo nasprotne in 
-                obratne vrednosti. 
-            
-            \paragraph{Polinomi} \mbox{}\\
-                Polinom je linearna kombinacija potenčnih funkcij, ki imajo 
-                nenegativne cele eksponente.
-                \begin{equation}
-                    p_n (x) = \sum_{k=0}^n a_kx^k
-                \end{equation}
-                Med polinomi lahko izvajamo matematične operacije. Za izračun
-                CRC bomo potrebovali seštevanje in deljenje. 
-            
-            \paragraph{Kodiranje sporočila kot polinom} \mbox{}\\
-                Začnimo s primerom.\footnote{Za vse nadaljnje odstavke bom 
-                uporabil isti primer, ki ga bom označil z $m(x)$} 
-                Predpostavimo, da želimo poslati sporočilo: "Oj!". Najprej ga je
-                potrebno pretvoriti v binarni zapis, kar lahko storimo z ASCII
-                tabelo.\\
-                Naše sporočilo sedaj izgleda:
+            ter množenje in deljenje:
+            \begin{table}[h!]
+                \centering
+                \begin{tabular}{l p{0.2\linewidth}}
+                    $0 * 0 = 0$  &  \\
+                    $0 * 1 = 0$  & $0 / 1 = 0$\\
+                    $1 * 0 = 0$  & $1 / 1 = 1$\\
+                    $1 * 1 = 1$  &  \\
+                \end{tabular}
+            \end{table}
 
-                \begin{table}[h!]
-                    \centering
-                    \begin{tabular}{ccc}
-                    O        & j        & !        \\
-                    01001111 & 01101010 & 00100001
-                    \end{tabular}
-                \end{table}
+            Lahko se je prepričati, da sta tako seštevanje kot množenje
+            asociativna in komutativna. Prav tako veljata identiteti (0 je
+            nevtralni element za seštevanje, 1 za množenje). Še vedno velja zakon o združevanju, prav tako pa lahko določimo nasprotne in
+            obratne vrednosti.
 
-                Vendar pa še vedno potrebujemo polinom. Za koeficiente uporabimo
-                binarne števke. Polinom $m(x)$ za naše sporočilo bi torej bil:
-                \begin{equation}
-                    \begin{split}
-                        m(x) = 0 \cdot x^{23} + 1 \cdot x^{22} + 0 \cdot x^{21}
-                        + 0 \cdot x^{20} & + 1 \cdot x^{19} + 1 \cdot x^{18} +
-                        + 1 \cdot x^{17} + 1 \cdot x^{16} + 0 \cdot x^{15}\\
-                        + \: 1 \cdot x^{14} + 1 \cdot x^{13} + 0 \cdot x^{12}
-                        + 1 \cdot x^{11} & + 0  \cdot x^{10} + 1 \cdot x^{9}
-                        + 0 \cdot x^{8} + 0 \cdot x^{7} + 0 \cdot x^{6} \\
-                        + \:1 \cdot x^{5} + 0 \cdot x^{4} + 0 \cdot x^{3} &
-                        + 0 \cdot x^{2} + 0 \cdot x^{1} + 1 \cdot x^{0}\\
-                    \end{split}
-                \end{equation}
-                oziroma, če malo uredimo
-                \begin{equation}
-                    \begin{split}
-                        m(x) = x^{22} + x^{19} + x^{18} + x^{17} + x^{16} +
-                        x^{14} + x^{13} + x^{11} + x^{9} + x^{5} + x^{0}
-                    \end{split}
-                \end{equation}
-            \paragraph{Osnovni izrek o deljenju (za polinome)} \mbox{}\\
-                Osnovni izrek o deljenju naravnih števil lahko zapišemo kot:
-                \begin{equation}
-                    a = k \cdot b + r; a,b,k,r \in \mathbb{N}
-                \end{equation}
-                Rečemo lahko tudi, da $b$ deli $a$ natanko tedaj, ko je $r=0$.
-                Tudi pri deljenju polinomov lahko zapišemo podobno:
-                \begin{equation}
-                    p(x) = k(x) \cdot q(x) + r(x)
-                \end{equation}
-                Polinom $p(x)$ je deljiv s polinomom $q(x)$ samo, če je 
-                $r(x)=0$.
-        \subsubsection{Cyclic redundancy check}
-            \paragraph{Generiranje CRC} \mbox{}\\
-            Za uporabo CRC algoritma moramo najprej določiti generatorski 
-            polinom $g(x)$. Za primer vzemimo: $g(x)=x^{16}+x^{12}+x^5+1$.
-            Poskusimo naše sporočilo $m(x)$ deliti z $g(x)$, pri tem pa 
-            upoštevajmo definicije iz \ref{sec:polja}.
-            Ker želimo sporočilo na koncu tudi poslati, ga seveda ne želimo 
-            uničiti. To zagotovimo tako, da na koncu sporočila dodamo toliko
-            bitov, kolikor bitni CRC uporabljamo. Za primer uporabljamo 16-bitni
-            CRC, saj je stopnja generatorskega polinoma 16 ($st(g)=16$). 
-            Matematično gledano to pomeni, da naše sporočilo pomnožimo z 
-            $x^{16}$ 
+        \paragraph*{Polinomi} \mbox{}\\
+            Polinom je linearna kombinacija potenčnih funkcij, ki imajo
+            nenegativne cele eksponente.
+            \begin{equation}
+                p_n (x) = \sum_{k=0}^n a_kx^k
+            \end{equation}
+            Med polinomi lahko izvajamo matematične operacije. Za izračun
+            CRC bomo potrebovali seštevanje in deljenje.
+
+        \paragraph*{Kodiranje sporočila kot polinom} \mbox{}\\
+            Začnimo s primerom.\footnote{Za vse nadaljnje odstavke bom
+            uporabil isti primer, ki ga bom označil z $m(x)$.}
+            Predpostavimo, da želimo poslati sporočilo: "Oj!". Najprej ga je
+            potrebno pretvoriti v binarni zapis, kar lahko storimo z ASCII
+            tabelo.\\
+            Naše sporočilo sedaj izgleda:
+
+            \begin{table}[h!]
+                \centering
+                \begin{tabular}{ccc}
+                O        & j        & !        \\
+                01001111 & 01101010 & 00100001
+                \end{tabular}
+            \end{table}
+
+            Vendar pa še vedno potrebujemo polinom. Za koeficiente uporabimo
+            binarne števke. Polinom $m(x)$ za naše sporočilo bi torej bil:
             \begin{equation}
                 \begin{split}
-                    (m(x) \cdot x^{16})/g(x) =\\
-                    (x^{38} + x^{35} + x^{34} + x^{33} + x^{32} +
-                    x^{30} + x^{29} + x^{27} + x^{25} + x^{21} + x^{16})\\
-                    /(x^{16} +x^{12} + x^5 + 1)=\\
-                    x^{22} + x^{19} + x^{17} + x^{16} + x^{15} +
-                    x^{14} + x^{12} + x^{11} + x^{10} + x^{9} + x^{7} + 
-                    x^{6} + x^{5} + x^{4} + x^{3}\\ + x^{2} + x^{1}\\
-                    , ost.: x^{15} + x^{14} + x^{13} + x^8 + x^5 + x^4 + x^3 + 
-                    x^2 + x^1 \quad (=r(x))
+                    m(x) = 0 \cdot x^{23} + 1 \cdot x^{22} + 0 \cdot x^{21}
+                    + 0 \cdot x^{20} & + 1 \cdot x^{19} + 1 \cdot x^{18} +
+                    + 1 \cdot x^{17} + 1 \cdot x^{16} + 0 \cdot x^{15}\\
+                    + \: 1 \cdot x^{14} + 1 \cdot x^{13} + 0 \cdot x^{12}
+                    + 1 \cdot x^{11} & + 0  \cdot x^{10} + 1 \cdot x^{9}
+                    + 0 \cdot x^{8} + 0 \cdot x^{7} + 0 \cdot x^{6} \\
+                    + \:1 \cdot x^{5} + 0 \cdot x^{4} + 0 \cdot x^{3} &
+                    + 0 \cdot x^{2} + 0 \cdot x^{1} + 1 \cdot x^{0}\\
                 \end{split}
             \end{equation}
-
-            Ugotovili smo, da $m(x)$ ni deljiv z $g(x)$. Lahko bi rekli, da je 
-            naše sporočilo za ostanek ($r(x)$) preveliko, da bi bilo deljivo. 
-            Od našega sporočila lahko torej odštejemo ostanek.\footnote{Zaradi 
-            uporabe končnega polja sta seštevanje in odštevanje zamenljivi 
-            operaciji in izgleda, kot da sta se polinoma seštela}
+            oziroma, če uredimo
             \begin{equation}
                 \begin{split}
-                    s(x) = & m(x) - r(x)\\
-                    = & (x^{38} + x^{35} + x^{34} + x^{33} + x^{32} +
-                    x^{30} + x^{29} + x^{27} + x^{25} + x^{21} + x^{16})\\
-                    + & \: (x^{15} + x^{14} + x^{13} + x^8 + x^5 + x^4 + x^3 + 
-                    x^2 + x^1)                    
+                    m(x) = x^{22} + x^{19} + x^{18} + x^{17} + x^{16} +
+                    x^{14} + x^{13} + x^{11} + x^{9} + x^{5} + x^{0}
                 \end{split}
             \end{equation}
+        \paragraph*{Osnovni izrek o deljenju (za polinome)} \mbox{}\\
+            Osnovni izrek o deljenju naravnih števil lahko zapišemo kot:
+            \begin{equation}
+                a = k \cdot b + r; a,b,k,r \in \mathbb{N}
+            \end{equation}
+            Rečemo lahko tudi, da $b$ deli $a$ natanko tedaj, ko je $r=0$.
+            Tudi pri deljenju polinomov lahko zapišemo podobno:
+            \begin{equation}
+                p(x) = k(x) \cdot q(x) + r(x)
+            \end{equation}
+            Polinom $p(x)$ je deljiv s polinomom $q(x)$ samo, če je
+            $r(x)=0$.
+        \subsection{Generiranje CRC}
+        Za uporabo CRC algoritma moramo najprej določiti generatorski polinom
+        $g(x)$. Za primer vzemimo: $g(x)=x^{16}+x^{12}+x^5+1$. Poskusimo naše
+        sporočilo $m(x)$ deliti z $g(x)$, pri tem pa upoštevajmo definicije iz
+        \ref{sec:polja}. Ker želimo sporočilo na koncu tudi poslati, ga seveda
+        ne želimo uničiti. To zagotovimo tako, da na koncu sporočila dodamo
+        toliko bitov, kolikor bitni CRC uporabljamo. Za primer uporabljamo
+        16-bitni CRC, saj je stopnja generatorskega polinoma 16 ($st(g)=16$).
+        Matematično gledano to pomeni, da naše sporočilo pomnožimo z $x^{16}$
+        \begin{equation}
+            \begin{split}
+                (m(x) \cdot x^{16})/g(x) =\\
+                (x^{38} + x^{35} + x^{34} + x^{33} + x^{32} +
+                x^{30} + x^{29} + x^{27} + x^{25} + x^{21} + x^{16})\\
+                /(x^{16} +x^{12} + x^5 + 1)=\\
+                x^{22} + x^{19} + x^{17} + x^{16} + x^{15} +
+                x^{14} + x^{12} + x^{11} + x^{10} + x^{9} + x^{7} +
+                x^{6} + x^{5} + x^{4} + x^{3}\\ + x^{2} + x^{1}\\
+                , ost.: x^{15} + x^{14} + x^{13} + x^8 + x^5 + x^4 + x^3 +
+                x^2 + x^1 \quad (=r(x))
+            \end{split}
+        \end{equation}
 
-            S tem smo zagotovili, da je sporočilo, ki ga bomo oddali $s(x)$ 
-            deljivo z $g(x)$.\footnote{Za oddajo sporočila polinom seveda 
-            pretvorimo nazaj v bite, naše sporočilo pa se glasi\\ 
-            10011110110101000100001110000100111110}
-            
-            \paragraph{Validacija CRC} \mbox{}\\
-            Ko prejmemo sporočilo, ki je bilo zavarovano s CRC, lahko prejeto 
-            sporočilo spet delimo z generatorskim polinomom, ostanek pri 
-            deljenju pa mora biti sedaj 0. Če ni tako, smo lahko prepričani,
-            da se je pri prejemu sporočila zgodila napaka. Žal ne moremo 
-            ugotoviti, kje se je napaka zgodila.
+        Ugotovili smo, da $m(x)$ ni deljiv z $g(x)$. Lahko bi rekli, da je naše
+        sporočilo za ostanek ($r(x)$) preveliko, da bi bilo deljivo. Od našega
+        sporočila lahko torej odštejemo ostanek.\footnote{Zaradi uporabe končnega
+        polja sta seštevanje in odštevanje zamenljivi operaciji in izgleda, kot
+        da sta se polinoma seštela.}
+        \begin{equation}
+            \begin{split}
+                s(x) = & m(x) - r(x)\\
+                = & (x^{38} + x^{35} + x^{34} + x^{33} + x^{32} +
+                x^{30} + x^{29} + x^{27} + x^{25} + x^{21} + x^{16})\\
+                + & \: (x^{15} + x^{14} + x^{13} + x^8 + x^5 + x^4 + x^3 +
+                x^2 + x^1)
+            \end{split}
+        \end{equation}
 
-\newpage
-\section{Empirični del – Digitalno vezje}
+        S tem smo zagotovili, da je sporočilo, ki ga bomo oddali, $s(x)$ deljivo
+        z $g(x)$.\footnote{Za oddajo sporočila polinom seveda pretvorimo nazaj v
+        bite, naše sporočilo pa se glasi 10011110110101000100001110000100111110.}
+
+        \subsection{Validacija CRC}
+        Ko prejmemo sporočilo, ki je bilo zavarovano s CRC, lahko prejeto
+        sporočilo spet delimo z generatorskim polinomom, ostanek pri deljenju pa
+        mora biti sedaj 0. Če ni tako, smo lahko prepričani, da se je pri prejemu
+        sporočila zgodila napaka. Žal ne moremo ugotoviti, kje se je napaka
+        zgodila.
+
+\section{Digitalno vezje}
     \subsection{Delovanje vezja}
         Najprej je potrebno naš tok bitov shraniti. To storimo z D pomnilnimi
-        celicami. Izhod prve vežemo na vhod druge. Signal tako potuje od prve 
+        celicami. Izhod prve vežemo na vhod druge. Signal tako potuje od prve
         proti zadnji. Število $a$ lahko delimo s številom $b$ samo, če je število
         $a$ večje od $b$. To pomeni, da moramo obrniti bite na pravih mestih
-        samo, če je izhod zadnje pomnilne celice 1. Logična vrata, ki nam to 
+        samo, če je izhod zadnje pomnilne celice 1. Logična vrata, ki nam to
         omogočajo, so vrata XALI. Pravilnostna tabela XALI vrat:
         \begin{table}[!h]
             \centering
@@ -368,20 +374,20 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
             \end{tabular}
         \end{table}
 
-        Iz pravilnostne tabele lahko vidimo, da je izhod vrat enak vhodu B, če 
-        je vhod A enak 0 in da je izhod negirana vrednost vhoda B, če je vhod A 
-        enak 1. V vhod A priključimo izhodni bit zadnje pomnilne celice in v 
+        Iz pravilnostne tabele lahko vidimo, da je izhod vrat enak vhodu B, če
+        je vhod A enak 0 in da je izhod negirana vrednost vhoda B, če je vhod A
+        enak 1. V vhod A priključimo izhodni bit zadnje pomnilne celice in v
         vhod B izhod pomnilne celice, ki ga želimo nadzirati. Ker je deljenje v
         izbranem končnem polju enako negiranju bitov, so XALI vrata prava izbira.
         Postavimo jih pred bite, ki jih želimo obrniti. Zadnjega ni potrebno
-        obračati, saj gre z naslednjim ciklom časovnika v pozabo. 
+        obračati, saj gre z naslednjim ciklom časovnika v pozabo.
         Ker želimo na koncu ostanek prebrati, pred A vhode XALI vrat postavimo
-        IN vrata, ki nastavijo izhod na 1 samo če sta oba vhoda tudi 1. Če je 
+        IN vrata, ki nastavijo izhod na 1 samo če sta oba vhoda tudi 1. Če je
         torej eden izmed vhodov vedno 1, bo vrednost izhoda enaka drugemu vhodu,
-        če pa bo vrednost enega izmed vhodov enaka 0, je izhod tudi 0 neodvisno 
+        če pa bo vrednost enega izmed vhodov enaka 0, je izhod tudi 0 neodvisno
         od drugega vhoda. Če torej v en vhod IN vrat pripeljemo signal s katerim
         povemo, da želimo samo brati ostanek, lahko s signalom READ preskočimo
-        negiranje bitov v ostanku. 
+        negiranje bitov v ostanku.
 
     \newpage
     \subsection{Shema vezja}
@@ -453,22 +459,22 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
                 (D1.pin 3 -| X1.in 2) -| ++(0, -16) node[anchor=east](CLK_H4){}
                 (CLK_H4) -| (D15.pin 3)
                 (CLK_H4) -| (D16.pin 3)
-                
+
                 % branje/pisanje
                 (D16.pin 6) -| (A1.in 1)
                 (A1.out) -| ++(4.3, 0) node[anchor=west](A1_H1){}
                 (A1_H1.west) -| ++(0, 6) -| ++(-7, 0) -| (X3.in 1)
                 (A1_H1.west) -| ++(0, 17) -| ++(-1,0) node[anchor=west](A1_H2){}
-                (A1_H2.west) -| (X2.in 1) 
-                (A1_H2.west) -| (X1.in 1) 
+                (A1_H2.west) -| (X2.in 1)
+                (A1_H2.west) -| (X1.in 1)
                 (A1.in 2) -| (N1.out)
                 (N1.in) |- ++(-9.5,-2) node[anchor=east]{READ}
 
                 % output
-                (D16.pin 6) -| ++(0.2,0) |- ++(-8.8,-3.5) node[anchor=east]{OUT}              
+                (D16.pin 6) -| ++(0.2,0) |- ++(-8.8,-3.5) node[anchor=east]{OUT}
                 ;
             \end{circuitikz}
-            \caption{Vezje logičnih enot za računanje 16-bitnega CRC in 
+            \caption[\>\quad Vezje logičnih enot za računanje 16-bitnega CRC]{Slika 1:\quad Vezje logičnih enot za računanje 16-bitnega CRC in
             polinomom $x^{16} + x^{12} + x^5 + 1$}
             \label{fig:vezje1}
         \end{center}
@@ -476,10 +482,11 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
 
 \newpage
 \section{Zaključek}
-S seminarsko nalogo sem vam želel podrobno opisati delovanje CRC. Za to je
-potrebno razložiti tudi nekaj matematike. Žal mi je zmanjkalo časa za poglobitev
-v delovanje logičnega vezja, sem pa uspešno izdelal oddajnik in sprejemnik
-sporočila zaščitenega s CRC.
+V seminarski nalogi sem opisal delovanje algoritma CRC ob tem pa se poglobil v
+naprednejšo matematiko kot so na primer končna polja in polinomi. V prihodnosti,
+bi vezje za generacio CRC implementiral tudi na Arduino MKR Vidor procesorju, ki
+uporablja polje FPGA nato pa bi generator priključil na za to namenjena oddajnik
+in sprejemnik.
 
 \newpage
 
@@ -495,13 +502,13 @@ sporočila zaščitenega s CRC.
 \begin{samepage}
     \thispagestyle{empty}
     \section*{Izjava o avtorstvu}
-    Izjavljam, da je seminarska naloga v celoti moje avtorsko delo, ki sem ga 
+    Izjavljam, da je seminarska naloga v celoti moje avtorsko delo, ki sem ga
     izdelal samostojno s pomočjo navedene literature in pod vodstvom mentorja.
 
     \vfill
-    
+
     7. 3. 2023 \hfill Jaka Kovač
-    
+
     \vspace{3 cm}
 \end{samepage}
 
