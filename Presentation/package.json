@@ -102,7 +102,6 @@
     }
   },
   "dependencies": {
-    "reveal-multiplex": "^0.1.0",
-    "reveal-notes-server": "^0.1.0"
+    "reveal-multiplex": "^0.1.0"
   }
 }
