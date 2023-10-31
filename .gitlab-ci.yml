@@ -1,0 +1,14 @@
+build:
+  image: archlinux:latest
+  script:
+    - pacman -Syu --noconfirm
+    - pacman -Sy --noconfirm texlive
+    - pacman -Sy --noconfirm texlive-langeuropean biber
+    - pacman -Sy --noconfirm wget git
+    - ./script.sh
+    - wget https://raw.githubusercontent.com/DiscordHooks/gitlab-ci-discord-webhook/master/send.sh
+    - chmod +x send.sh
+    - /bin/bash ./send.sh success $WEBHOOK
+  artifacts:
+    paths:
+      - Naloga.pdf
