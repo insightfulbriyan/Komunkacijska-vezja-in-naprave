@@ -37,6 +37,8 @@
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{4}
 
+\renewcommand{\baselinestretch}{1.5} 
+
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
@@ -55,7 +57,7 @@
 \newdateformat{MMYYYYdate}{\monthname[\THEMONTH] \THEYEAR}
 
 \title{Komunikacijska vezja in naprave}
-\author{Jaka Kovač, G 3. b}
+\author{Jaka Kovač, G 4. b}
 
 \begin{document}
 \pagenumbering{arabic}
@@ -75,8 +77,7 @@
     \vspace{\fill}
 
     Mentor: Anton Orehek, uni. dipl. inž., prof. \hfill Avtor: Jaka Kovač S51JK,
-    G 3. b\\
-    \null
+    G 4. b\\
     Ljubljana, december 2022 – \MMYYYYdate\today
 \end{center}
 \newpage
@@ -95,14 +96,6 @@ Pokaže tudi, kako CRC implementirati z logičnim vezjem.\\
 komunikacija\\
 
 \vfill
-\section*{Abstract}
-\foreignlanguage{english}{This paper describes mathematical part of cyclic 
-redundancy check, while at the same time depicts mathematical terms like finite
-fields and polynomials. The paper shows how to implement CRC with logic circuit.
-\\
-\\
-\textbf{Keywords:} CRC, finite fields, polynomials, logic circuits, digital 
-communication}
 
 \vfill
 % KAZALO 
@@ -111,21 +104,23 @@ communication}
 \tableofcontents
 
 \begingroup
+
 \makeatletter
 \section*{Slike}
 \@starttoc{lof}
 \let\clearpage\relax
 \makeatother
 \endgroup
+\thispagestyle{empty}
 
 
 \newpage
 \section{Uvod}
-Dandanes se vsak zanaša na digitalno komunikacijo. Pa naj bo pogovor z ljubljeno
+Dandanes se vsi zanašamo na digitalno komunikacijo. Pa naj bo pogovor z ljubljeno
 osebo, kratkočasenje z uporabo interneta ali pa plačevanje z bančno kartico. 
 Potrebno je zagotoviti pravilni prejem sporočila. Motnje so lahko zelo različne.
 Kot ponavadi si lahko pomagamo z matematiko, saj je bilo iznajdenih že kar nekaj
-matematičnih algoritmov kot so Hammingov kod in cyclic redundancy check. 
+matematičnih algoritmov, kot so Hammingov kod in Cyclic Redundancy Check (CRC). 
 Matematična kompleksnost prej omenjenega algoritma in preprostost
 implementacije z diskretnimi logičnimi enotami sta nasprotujoča. CRC se
 uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
@@ -190,7 +185,8 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
         (American Standard Code for Information Interchange). Danes pa se
         večinoma uporablja sistem UTF-8, ki je bolj vsestranski, saj podpira
         skoraj 300 000 alfanumeričnih, nadzornih ipd. znakov.
-    \subsection{Error correction}
+    \newpage
+        \subsection{Error correction}
         Odpravljanje napak (ang.: error correction) je skupek načeloma 
         matematičnih algoritmov, s katerimi lažje opazimo in popravimo napake 
         pri prenosu sporočila.
@@ -389,7 +385,7 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
     \subsection{Shema vezja}
     \begin{figure}[h!]
         \begin{center}
-            \begin{circuitikz} \draw
+            \begin{circuitikz}[/tikz/circuitikz/bipoles/length=1.1cm] \draw
                 % inicializacija vseh komponent
                 (0, 0.84) node[european xor port](X1){}
                 (X1.in 2) node[anchor=east]{DIN}
@@ -478,10 +474,12 @@ uporablja pri internetni komunikaciji, WiFi, mobilnih podatkih ipd.
 
 \newpage
 \section{Zaključek}
-S seminarsko nalogo sem vam želel podrobno opisati delovanje CRC. Za to je
-potrebno razložiti tudi nekaj matematike. Žal mi je zmanjkalo časa za poglobitev
-v delovanje logičnega vezja, sem pa uspešno izdelal oddajnik in sprejemnik
-sporočila zaščitenega s CRC.
+V seminarski nalogi sem se poglobil v razumevanje in delovanje komunikacijskih vezij, 
+zlasti  analizi (in implementaciji) vezja za izračun CRC (Cyclic Redundancy Check). 
+Raziskal in opisal sem teoretične osnove in praktično uporabo v komunikacijskih sistemih.
+Narisal sem logično vezje za izračun CRC. Naloga poudarja pomembnost temeljitega 
+razumevanja osnov matematike in njene uporabe v komunikacijski tehnologiji in njenega
+vpliva na sodobne komunikacijske sisteme.
 
 \newpage
 
